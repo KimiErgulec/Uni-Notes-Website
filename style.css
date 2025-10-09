@@ -69,9 +69,9 @@ header {
 }
 
 h1 {
-  margin: 0 0 0.2em;
+  margin: 0 0 12px;
   color: var(--primary);
-  font-size: 1.2rem;
+  font-size: 50.2px;
   font-weight: 1000;
 }
 
