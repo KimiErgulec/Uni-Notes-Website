@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Appunti</title>
+    <style>
+        :root {
+          --primary: #006d77;
+          --secondary: #83c5be;
+          --background: #edf6f9;
+          --text: #0b1220;
+          --hover: #005a63;
+        }
+
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+          line-height: 1.6;
+          color: var(--text);
+          background: var(--background);
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 40px 20px;
+        }
+
+        .container {
+          max-width: 1000px;
+          width: 100%;
+        }
+
+        header {
+          text-align: center;
+          margin-bottom: 48px;
+        }
+
+        h1 {
+          color: var(--primary);
+          font-size: 2.5rem;
+          margin-bottom: 8px;
+        }
+
+        .subtitle {
+          color: #555;
+          font-size: 1.1rem;
+        }
+
+        .subjects-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 24px;
+          margin-bottom: 40px;
+        }
+
+        .subject-card {
+          background: white;
+          border: 1.5px solid var(--secondary);
+          border-left: 5px solid var(--primary);
+          border-radius: 8px;
+          padding: 24px;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          text-decoration: none;
+          color: inherit;
+          display: block;
+        }
+
+        .subject-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 8px 16px rgba(0, 109, 119, 0.15);
+          border-left-color: var(--hover);
+        }
+
+        .subject-title {
+          font-size: 1.4rem;
+          font-weight: 600;
+          color: var(--primary);
+          margin-bottom: 8px;
+        }
+
+        .subject-description {
+          color: #555;
+          font-size: 0.95rem;
+          line-height: 1.5;
+        }
+
+        .subject-icon {
+          font-size: 2rem;
+          margin-bottom: 12px;
+          display: block;
+        }
+
+        footer {
+          text-align: center;
+          color: #777;
+          font-size: 0.9rem;
+          margin-top: auto;
+          padding-top: 40px;
+        }
+
+        .info-box {
+          background: white;
+          border: 1px solid var(--secondary);
+          border-radius: 8px;
+          padding: 20px;
+          margin-bottom: 32px;
+          text-align: center;
+        }
+
+        .info-box p {
+          color: #555;
+          margin: 8px 0;
+        }
+
+        @media (max-width: 600px) {
+          h1 {
+            font-size: 2rem;
+          }
+          
+          .subjects-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Appunti Matematica Applicata</h1>
+            <p class="subtitle">Kimi Ergulec | Università di Verona</p>
+        </header>
+
+        <div class="subjects-grid">
+            <a href="CalcoloNumerico2/CalcoloNumerico2.html" class="subject-card">
+                <span class="subject-icon">🔢</span>
+                <h2 class="subject-title">Calcolo Numerico 2</h2>
+                <p class="subject-description">Metodi numerici per sistemi lineari, fattorizzazioni matriciali, e metodi iterativi</p>
+            </a>
+
+            <a href="MetodiNumerici/MetodiNumerici.html" class="subject-card">
+                <span class="subject-icon">∫</span>
+                <h2 class="subject-title">Metodi Numerici</h2>
+                <p class="subject-description">Metodi Numerici per la Risoluzione di Equazioni Differenziali, con Matlab</p>
+            </a>
+
+            <a href="Geometria/index.html" class="subject-card">
+                <span class="subject-icon">📐</span>
+                <h2 class="subject-title">Geometria</h2>
+                <p class="subject-description">Spazi vettoriali, trasformazioni lineari, e geometria analitica</p>
+            </a>
+
+            <a href="AlgebraLineare/index.html" class="subject-card">
+                <span class="subject-icon">🔷</span>
+                <h2 class="subject-title">Algebra Lineare</h2>
+                <p class="subject-description">Matrici, determinanti, autovalori e autovettori</p>
+            </a>
+
+            <a href="Probabilita/index.html" class="subject-card">
+                <span class="subject-icon">🎲</span>
+                <h2 class="subject-title">Probabilità</h2>
+                <p class="subject-description">Teoria della probabilità, variabili aleatorie e distribuzioni</p>
+            </a>
+
+            <a href="Fisica/index.html" class="subject-card">
+                <span class="subject-icon">⚛️</span>
+                <h2 class="subject-title">Fisica</h2>
+                <p class="subject-description">Meccanica, termodinamica, elettromagnetismo</p>
+            </a>
+        </div>
+
+        <footer>
+            <p>Anno Accademico 2024-2025 | Università di Verona</p>
+        </footer>
+    </div>
+</body>
+</html>

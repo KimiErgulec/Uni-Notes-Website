@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Metodi Numerici per la Risoluzione di Equazioni Differenziali - Capitolo 1</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="minimal-wrapper">
+    <a href="MetodiNumerici.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Metodi Numerici per la Risoluzione di Equazioni Differenziali</h1>
+    </header>
+
+    <article>
+        <h2>Metodo di Eulero</h2>
+        <p>
+            $$\begin{cases}y'(t)=f(t,y(t))\\y(t_0)=y_0\end{cases}$$
+            Pur non sembrandolo, è un sistema di equazioni differenziali siccome ogni termine è un vettore.Se $f$ Lipshitziana per il seconod argomento, allora ha una soluzione. 
+            L'algoritmo di Eulero esplicito approssima la funzione $$y'(t)\approx \frac{y(t)-y(t_0)}{t-t_0}$$ per cui:
+            $$y(t)\approx y(t_0)+(t-t_0)f(t-t_0)$$
+            Facendo così però abbiamo il problema che $$y(t)=y(t_0)+\int_{t_0}^tf(z,y(z))dz$$ è difficile da calcolare, perciò approssimiamo l'integrale con la quadratura a rettangoli definendo $k=\frac{t^*}{m}$ dove $k$ è uno step, $t^*$ è l'intervallo d'interesse e $m$ sono il numero di step che vogliamo fare. Abbiamo quindi che $$y(t_1)\approx y_1 = y_0 + kf(t_0,y_0)\quad , \quad y_2 = y_1+kf(t_1,y_1)\quad , \quad...$$
+            Ottenendo la formula iterativa $$y_{n+1}=y_n+kf(t,\tilde{y}(t))$$ con $n=0,...,m-1$
+            $$\begin{cases}\tilde{y}'(t)=f(t,\tilde{y}(t))\\y(t_n)=y_n\end{cases}$$
+            Ovviamente più piccolo è $k$ più preciso è il metodo.
+        </p>
+
+        <p>
+            L'algoritmo di Eulero Esplicito è un algoritmo stabile e consistente:
+            <div class = "lemma">
+                <div class = "lemma-title">Definizione: Stabilità</div>
+                Un metodo ad un passo $y_{n+1}=Y(f,k,y_n)$ è stabile se $$||Y_n(f,k,x)-Y_n(f,k,y)||\leq (1+kL)||x-y||\quad L>0$$per $k$ sufficientemente piccolo.
+            </div>
+            Possiamo quindi dimostrare che in effetti Eulero esplicito lo è siccome: $$||x+kf(t,x)-y-kf(t,y)||\leq (1+k\lambda)||x-y||$$per la Lipshitzianità di $f$. 
+            <div class="lemma">
+                <div class = "lemma-title">
+                    Definizione: Errore Locale
+                </div>
+                La quantità $y(t_1)-Y_0(f,k,y(t_0))$ si chiama errore locale del metodo
+            </div>
+            L'errore locale è la differenza tra la soluzione esatta al tempo $t_0$ e la soluzione approssimata al tempo $t_1$. Per il metodo di Eulero si ha $$y(t_1)-Y_0(f,k,y(t_0))=y(t_1)-y(t_0)-kf(t_0,y(t_0))$$Ora possiamo fare l'espansione di Taylor di $y(t_1)=y(t_0+k)$ si sviluppa $y(t)$ attorno a $t_0$: $$y(t_0+k)=y(t_0)+ky'(t_0)+\frac{k^2}{2}y''(t_0)+O(k^3)$$ottenendo quindi $$y(t_0)+ky'(t_0)+\frac{k^2}{2}y''(t_0)+O(k^3)-y(t_0)-kf(t_0,y(t_0))$$ $$\frac{k^2}{2}y''(t_0)+O(k^3)=O(k^2)$$
+            Siccome ad ogni passo però si commette $O(k^2)$ d'errore locale, i passi essendo $m=\frac{t^*}{k}$, per $m\to \infty$ si commette un errore massimo di $\frac{t^*}{k}\cdot O(k^2)=O(k)$.
+        </p>
+
+        <p>
+            <div class = "lemma">
+                <div class = "lemma-title">
+                    Definizione: Ordine di Convergenza
+                </div>
+                Un metodo $y_{n+1}=Y_n(f,k,y_n)$ è di ordine $p$ se $y(t_1)-Y_0(f,k,y(t_0))=O(k^{p+1}),k=\frac{t^*}{m}$ per $m\to \infty$ per qualunque $f$ analitica
+            </div>
+            un metodo di ordine $p\geq 1$ si dice consistente di ordine $p$ o semplicemente consistente.
+
+            Il metodo di Eulero è consistente di ordine $1$.
+        </p>
+
+        <p>
+            Definiamo ora $y_{n+1}=y_n+kf(t_n,y_n)$ dove $n=0,1,...,m-1$. Questo è semplicemente un modo più "preciso" per studiare il metodo, $y_{n,m}$ è l'$n$-esimo passo di $m$ passi totali su un intervallo di $t^*$ partendo da $t_0$ fino a $t_0+t^*$.
+            <div class= "lemma">
+                <div class = "lemma-title">
+                    Definizione: Errore Globale
+                </div>
+                Il metodo $y_{n+1,m}=Y_n(f,k,y_{n,m})$ è convergente se $$\lim_{m\to \infty}\max_{0\leq n \leq m}||e_{n,m}||=0$$ ove $e_{n,m}=y_{n,m}-y(t_{n,m})$ dove la quantità $||e_{n,m}||$ è detto errore globale.
+            </div>
+        </p>
+
+        <p>
+            <div class = "theorem">
+                <div class = "theorem-title">Teorema di Convergenza del Metodo di Eulero</div>
+                $$e_{n+1,k}=y_{n+1,k}-y(t_{n+1,k})=$$
+                Sommiamo e sottraiamo $y_{n+1,k}^*$ ricordando che $y_{n+1,k}^*$ è il valore "sperimentale"$$=y_{n+1,k}-y_{n+1,k}^*+y_{n+1,k}^*-y(t_{n+1,k})$$Usiamo la Disuguaglianza Triangolare $$||e_{n+1,k}||\leq ||\underbrace{y_{n+1,k}-y_{n+1,k}^*}_{(1)}||+||\underbrace{y_{n+1,k}^*-y(t_{n+1,k})}_{(2)}||$$
+                Esaminando $(1)$, $$\begin{cases}y_{n+1,k}=y_{n,k}+kf(t_n,y_{n,k})\\y^*_{n+1,k}=y(t_n,k)+kf(t_n,y(t_{n,k}))\end{cases}$$
+                Possiamo ora riunirli ed usare la Lipshitzianità di $f$: $$||y_{n,k}+kf(t_n,y_{n,k})-y(t_{n,k})-kf(t_n,y(t_{n,k}))||=$$$$=||y_{n,k}-y(t_{n,k})+kf(t_n,y_{n,k})-kf(t_n,y(t_{n,k}))||=$$$$\leq||y_{n,k}-y(t_{n,k})||+kf\lambda||(y_{n,k}-y(t_{n,k}))||=(1+k\lambda)||y_{n,k}-y(t_{n,k})||$$
+                Esaminando $(2)$, per la consistenza del metodo è proporzionale a $k^2$. Quindi possiamo riassumere il tutto: $$||e_{n+1,k}||\leq (1+k\lambda)||y_{n,k}-y(t_{n,k})||+ck^2= (1+k\lambda)||e_{n,k}||+ck^2$$Da esso quindi capiamo la relazione di ricorrenza degli errori, infatti $$||e_{n,k}||\leq(1+k\lambda)||e_{n-1,k}||+ck^2\Ra ||e_{n+1,k}||\leq (1+k\lambda)^2||e_{n-1,k}||+(1+k\lambda)ck^2+ck^2$$
+                Perciò: $$||e_{n,k}||\leq (1+k\lambda)^n||e_{0,k}||+ck^2(1+(1+k\lambda)+(1k\lambda)^2+\dots+(1+k\lambda)^{n-1})=$$$$=(1+k\lambda)^n||e_{0,k}||+\frac{(1+k\lambda)^n-1}{(1+k\lambda)-1}\cdot ck^2$$Non potendo ancora mandare $k\to 0$ siccome il denominatore si annullerebbe $$1+k\lambda \lt e^{k\lambda}\Ra(1+k\lambda)^n\lt e^{k\lambda n}\leq e^{mk\lambda}=e^{t^*\lambda}$$che non dipende più da $n$ o $k$, perciò:$$(1+k\lambda)^n||e_{0,k}||+\frac{(1+k\lambda)^n-1}{(1+k\lambda)-1}\cdot ck^2\leq e^{t^*\lambda}||e_{0,k}||+\frac{e^{t^*\lambda}-1}{\lambda}ck$$ Per $\lim_{k\to0}||e_{n,k}||=0$ si annulla la prima parte, otteniamo quindi moltiplicando sia sotto che sopra per $t^*$ $$\frac{t^*(e^{t^*\lambda}-1)}{t^*\lambda}ck = t^*\varphi_1(t^*\lambda)ck\quad \quad \varphi_1 = \frac{e^{{t^*}\lambda}-1}{t^*\lambda}$$
+                Converge con ordine di convergenza $1\quad \square$
+            </div>
+        </p>
+        
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+</body>
+</html>

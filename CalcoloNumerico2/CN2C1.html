@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Calcolo Numerico 2 - Capitolo 1</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="minimal-wrapper">
+    <a href="CalcoloNumerico2.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Calcolo Numerico 2</h1>
+    </header>
+
+    <article>
+        <section>
+            <h2>1. Metodi per la risoluzione di Sistemi Lineari</h2>
+
+            <h3>1.1 Introduzione</h3>
+            <p class="normal-text">
+                Vogliamo risolvere problemi nella forma $$Ax=b$$
+                dove $A$ è una matrice con componenti $a_{ij}$ con $i=1,...,m$ e $j=1,...,n$ perciò $A\in M_{m\times n}(\RR)$, $x$ è un vettore riga in $\RR^n$ e $b\in \RR^m$. Consideriamo per ora, per semplicità $m=n$ ovvero matrici quadrate.
+            </p>
+
+            <h3>1.2 Metodi per risolvere $Ax=b$</h3>
+            <ol>
+                <li>
+                    Calcolare l'inversa di $A$ per poi moltiplicarla ambi i lati: 
+                    $$Ax=b \quad\Ra\quad A^{-1}Ax=A^{-1}b\quad\Ra\quad x=A^{-1}b$$ 
+                    Questo metodo non conviene siccome il comando matlab <code>inv(A)</code> è lento e costoso
+                </li>
+
+                <li>
+                    Metodi Diretti, ovvero algoritmi elementari per risolvere matrici diagonali, triangolari, diagonali inferiori, diagonali superiori. Basati sulle fattorizzazioni di A per renderle matrici elementari. Utile per quando dobbiamo risolvere $Ax=b_i$ con tanti $b$ diversi, così fattorizziamo $A$ una unica volta e possiamo riutilizzarla per trovare tanti $x_i$ diversi a seconda della $b_i$ usata. Spesso utilizzata per quando $A$ è piena.
+                </li>
+
+                <li>
+                    Metodi Iterativi o indiretti: utilizzate per matrici sparse
+                    
+                    <div class="lemma">
+                        <div class="lemma-title">Matrice Sparsa</div>
+                        <p>
+                            Una matrice sparsa è una matrice $n\times n$ con quasi tutti elementi nulli, ovvero che ha solo $O(n)$ elementi non nulli (ha senso siccome l'ordine di elementi di una matrice $n \times n$ è $O(n^2)$).
+                        </p>
+                    </div>
+
+                    <p>
+                        Il metodo parte da un guess iniziale della soluzione ed utilizza una successione di operazioni per trovare una soluzione più accurata del primo guess. Andando avanti così si raggiunge una soluzione sempre più vicina a quella reale. Il residuo (la differenza tra la soluzione numerica e quella esatta) tende ad un numero molto piccolo.
+                    </p>
+
+                    <div class="lemma">
+                        <div class="lemma-title">Idea:</div>
+                        <p>
+                            Consideriamo una decomposizione di una matrice $A$ tale che $A=M-N$, inoltre sapendo che $\det(A)\neq 0$ vale che per ogni $b\in \RR^n$ vale che 
+                            $$Ax=b \sse Mx = Nx+b$$ 
+                            Decidiamo di applicare un procedimento iterativo di tipo punto fisso: 
+                            $$Mx^{(k+1)}=Nx^{(k)}+b$$
+                            Analizziamo che chiamando $B=M^{-1}N$ otteniamo: 
+                            $$B=M^{-1}N=M^{-1}\underbrace{(M-A)}_{A=M-N}=I-M^{-1}A$$ 
+                            possiamo quindi riscrivere 
+                            $$x^{(k+1)}=Bx^{(k)}+M^{-1}b$$ 
+                            $B$ è detta matrice di iterazione
+                        </p>
+                    </div>
+                </li>
+            </ol>
+
+            <h3>1.3 Studio delle Convergenze</h3>
+            
+            <div class="lemma">
+                <div class="lemma-title">Definizione</div>
+                <p>
+                    Un metodo iterativo si dice <b>Convergente</b> se qualunque sia $x^{(0)}$, la successione $x^{(k)}$ è convergente.
+                </p>
+            </div>
+
+            <p>
+                Tale proprietà è legata dagli autovalori della matrice iterativa. Indichiamo con $\bar{x}$ la soluzione esatta di $Ax=b$ e consideriamo $\hat{x}=B\bar{x}+M^{-1}b$ e $x^{(k+1)}=Bx^{(k)}+M^{-1}b$ dove $e^{(k)}=\hat{x}-x^{(k)}$ è l'errore. Allora 
+                $$\Ra\quad e^{(k+1)}=Be^{(k)}$$ 
+                $$e^{(k)}=Be^{(k-1)}=B(Be^{(k-2)})=...=B^ke^{(0)}$$ 
+                dove $e^{(0)}=\hat{x}-x^{(0)}$, perciò dipende più da $B$ diminuire l'errore che dal guess iniziale (abbiamo inoltre detto che dovrebbe essere valido per ogni guess iniziale).
+            </p>
+            
+            <div class="theorem">
+                <div class="theorem-title">Teorema 1</div>
+                <p>
+                    <b>Condizione necessaria e sufficiente per la convergenza:</b> il metodo iterativo definito dalla matrice $B$ converge per ogni $x^{(0)}$ se e solo se $\rho(B)\lt 1$ dove $\rho$ è il raggio spettrale della matrice.
+                </p>
+                
+                <div class="lemma">
+                    <div class="lemma-title">Definizione Raggio Spettrale</div>
+                    <p>
+                        Raggio Spettrale di $M$ è la massima lunghezza, in modulo, degli autovalori di $M$. 
+                        $$\rho(M) = \max(|\lambda_i|)\quad \forall i$$
+                    </p>
+                </div>
+            </div>
+
+            <div class="theorem">
+                <div class="theorem-title">Teorema 2</div>
+                <p>
+                    Sia $M\in \CC^{n\times n}$, $\rho(M)$ il suo raggio spettrale, allora 
+                    $$\lim_{k\to \infty}M^k=0\sse\rho(M)\lt 1$$
+                    L'iterazione di Punto Fisso con matrice $B$ è convergente se esiste una norma di matrice tale che $||B||\lt 1$
+                </p>
+            </div>
+
+            <h3>1.4 Metodo di Jacobi</h3>
+
+            <p>
+                Prendere la riga $i$-esima per isolare $x_i$ in $Ax=b$ dove $x=\begin{bmatrix}x_1\\ \vdots \\ x_n\end{bmatrix}$. Voglio isolare la riga $i$-esima prendendo solo quella: 
+                $$\sum_{j=1}^{n}a_{ij}x_j=b_i\Ra a_{ii}x_i+\sum_{j=1\atop j\neq i}^n a_{ij}x_j=b_i$$
+                $$x_i=\frac{1}{a_{ii}}(b_i-\sum_{j=1\atop j\neq i}^na_{ij}x_j)$$
+                Da questo deduciamo l'iterazione: 
+                $$x_{i}^{(k+1)}=\frac{1}{a_{ii}}(b_i-\sum_{j=1\neq i}^{n}a_{ij}x_j^{(k)})$$
+                Manipolando ancora, otteniamo: 
+                $$a_{ii}x_i^{(k+1)}=b_i-\sum_{j=1}^{i-1}a_{ij}x_j^{(k)}-\sum_{j=i+1}^na_{ij}x_j^{(k)}\quad \forall i$$
+                Deduciamo la forma matriciale del metodo: 
+                $$Dx^{(k+1)}=b-(L+U)x^{(k)}\Ra x^{(k+1)}=D\inv b-\underbrace{D\inv(L+U)}_Jx^{(k)}$$ 
+                Dove $J$ è la matrice di iterazione del metodo di <em>Jacobi</em>
+            </p>
+        </section>
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+/* ============================================
+   GLOBAL VARIABLES
+   ============================================ */
+:root {
+  --primary: #006d77;
+  --primary-dark: #005a63;
+  --secondary: #83c5be;
+  --secondary-light: #aacfc6;
+  --background: #edf6f9;
+  --text: #0b1220;
+  --text-muted: #555;
+  --white: #ffffff;
+  --code-bg: #f6f8fa;
+  --shadow-sm: 0 2px 8px rgba(0, 109, 119, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 109, 119, 0.15);
+  --transition: all 0.3s ease;
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 32px;
+  color: var(--text);
+  background: var(--background);
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 50px;
+  }
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.back-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  transition: var(--transition);
+}
+
+.back-home:hover {
+  background: rgba(0, 109, 119, 0.08);
+  transform: translateX(-4px);
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+header {
+  margin-bottom: 32px;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 15px;
+}
+
+h1 {
+  margin: 0 0 0.2em;
+  color: var(--primary);
+  font-size: 1.2rem;
+  font-weight: 1000;
+}
+
+h2 {
+  color: var(--primary);
+  font-size: 1.6rem;
+  margin: 26px 0 16px;
+}
+
+h3 {
+  color: var(--primary-dark);
+  font-size: 1.3rem;
+  margin: 24px 0 12px;
+}
+
+article {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+p {
+  margin: 12px 0;
+}
+
+/* Informal explanatory text */
+p.normal-text {
+  font-size: 1rem;
+  color: var(--text);
+  margin: 16px 0;
+}
+
+/* ============================================
+   CODE & MATH
+   ============================================ */
+pre, code {
+  background: var(--code-bg);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+pre {
+  padding: 16px;
+  overflow-x: auto;
+  border: 1px solid #e1e4e8;
+}
+
+pre code {
+  padding: 0;
+  background: transparent;
+}
+
+.math-block {
+  margin: 20px 0;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px dashed var(--secondary);
+  background: var(--white);
+  overflow-x: auto;
+}
+
+/* ============================================
+   THEOREM-LIKE ENVIRONMENTS
+   ============================================ */
+.theorem, .proposition, .lemma, .definition, .corollary {
+  border: 1.5px solid var(--secondary);
+  border-left: 5px solid var(--primary);
+  border-radius: 8px;
+  background: var(--white);
+  padding: 16px 20px;
+  margin: 24px 0;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.theorem-title, .proposition-title, .lemma-title,
+.definition-title, .corollary-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+}
+
+/* Hierarchical color distinction */
+.theorem {
+  border-left-color: var(--primary);
+}
+
+.theorem-title {
+  color: var(--primary);
+}
+
+.proposition {
+  border-left-color: #4f8b8e;
+  background: #f9fcfc;
+}
+
+.proposition-title {
+  color: #4f8b8e;
+}
+
+.lemma {
+  border-left-color: var(--secondary-light);
+  background: #fcfefe;
+}
+
+.lemma-title {
+  color: #4f8b8e;
+  font-weight: 500;
+}
+
+.definition {
+  border-left-color: #e76f51;
+}
+
+.definition-title {
+  color: #e76f51;
+}
+
+.corollary {
+  border-left-color: #2a9d8f;
+  background: #f8fffe;
+}
+
+.corollary-title {
+  color: #2a9d8f;
+}
+
+/* ============================================
+   PROOFS
+   ============================================ */
+.proof {
+  margin: 16px 0 24px 0;
+  padding: 12px 16px 12px 20px;
+  border-left: 3px solid var(--secondary);
+  background: #f9fffe;
+  border-radius: 0 6px 6px 0;
+  font-style: italic;
+  color: #222;
+}
+
+.proof-title {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.qed {
+  display: inline-block;
+  margin-left: 8px;
+  color: var(--secondary);
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+/* Alternative QED symbol */
+.qed::after {
+  content: "∎";
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.note {
+  padding: 12px 16px;
+  margin: 16px 0;
+  background: #fff9e6;
+  border-left: 4px solid #f4a261;
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.note::before {
+  content: "📝 Nota: ";
+  font-weight: 600;
+  color: #e76f51;
+}
+
+.compute {
+  margin-top: 16px;
+  padding: 12px;
+  background: #f0f7ff;
+  border-left: 4px solid #0077cc;
+  border-radius: 6px;
+}
+
+.result {
+  font-weight: 700;
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: #e8f5e9;
+  border-left: 4px solid #4caf50;
+  border-radius: 6px;
+}
+
+.warning {
+  padding: 12px 16px;
+  margin: 16px 0;
+  background: #fff3e0;
+  border-left: 4px solid #ff9800;
+  border-radius: 6px;
+  color: var(--text);
+}
+
+.warning::before {
+  content: "⚠️ Attenzione: ";
+  font-weight: 600;
+  color: #f57c00;
+}
+
+/* ============================================
+   LISTS
+   ============================================ */
+ol, ul {
+  margin: 12px 0;
+  padding-left: 28px;
+}
+
+li {
+  margin: 8px 0;
+}
+
+/* Custom ordered list */
+ol.custom-counter {
+  list-style: none;
+  counter-reset: item;
+  padding-left: 0;
+}
+
+ol.custom-counter > li {
+  counter-increment: item;
+  margin-bottom: 12px;
+  padding-left: 40px;
+  position: relative;
+}
+
+ol.custom-counter > li::before {
+  content: counter(item);
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: var(--primary);
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  h2 {
+    font-size: 1.4rem;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+  }
+  
+  .theorem, .proposition, .lemma, .definition, .corollary {
+    padding: 12px 16px;
+  }
+  
+  .proof {
+    padding: 10px 14px;
+  }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
+  
+  .back-home {
+    display: none;
+  }
+  
+  .theorem, .proposition, .lemma, .definition, .corollary {
+    page-break-inside: avoid;
+    box-shadow: none;
+  }
+}
