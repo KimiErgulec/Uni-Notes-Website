@@ -1,12 +1,142 @@
-<!doctype html>
-<html lang="it">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Appunti</title>
-    <link rel="stylesheet" href="style.css">
+/* ============================================
+   GLOBAL VARIABLES - LIGHT MODE (DEFAULT)
+   ============================================ */
+:root {
+    --primary: #006d77;
+    --primary-dark: #005a63;
+    --primary-light: #008791;
+    --secondary: #83c5be;
+    --secondary-light: #aacfc6;
+    --background: #edf6f9;
+    --text: #0b1220;
+    --text-muted: #5a6c7d;
+    --white: #ffffff;
+    --border-light: #e1e8ed;
+    --hover: #005a63;
+    --card-bg: #ffffff;
+    --shadow-sm: 0 2px 8px rgba(0, 109, 119, 0.1);
+    --shadow-md: 0 4px 16px rgba(0, 109, 119, 0.15);
+    --shadow-lg: 0 8px 24px rgba(0, 109, 119, 0.2);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-    <style>
+/* ============================================
+   DARK MODE VARIABLES
+   ============================================ */
+[data-theme="dark"] {
+    --primary: #4db8c4;
+    --primary-dark: #3a9ca8;
+    --primary-light: #6fc9d4;
+    --secondary: #83c5be;
+    --background: #0f1419;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --white: #161b22;
+    --card-bg: #1c2128;
+    --border-light: #30363d;
+    --hover: #6fc9d4;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 
+                 "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--background);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 80px; /* Space for fixed header */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   FIXED HEADER BAR
+   ============================================ */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    border-bottom: 2px solid var(--primary);
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+}
+
+.top-bar-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.top-bar-name {
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+.top-bar-university {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* ============================================
+   DARK MODE TOGGLE BUTTON
+   ============================================ */
+.theme-toggle {
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle:hover {
+    background: var(--hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.theme-toggle:active {
+    transform: translateY(0);
+}
+
+.theme-toggle-icon {
+    font-size: 1.2em;
+}
+
 /* ============================================
    MAIN CONTAINER
    ============================================ */
@@ -18,6 +148,9 @@
     flex: 1;
 }
 
+/* ============================================
+   HEADER
+   ============================================ */
 header {
     text-align: center;
     margin-bottom: 48px;
@@ -37,6 +170,31 @@ h1 {
     font-weight: 400;
 }
 
+/* ============================================
+   INFO BOX
+   ============================================ */
+.info-box {
+    background: var(--card-bg);
+    border: 2px solid var(--border-light);
+    border-left: 5px solid var(--secondary);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 40px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.info-box:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.info-box p {
+    color: var(--text-muted);
+    margin: 8px 0;
+    line-height: 1.6;
+}
 
 /* ============================================
    SUBJECTS GRID
@@ -225,70 +383,5 @@ footer p {
         box-shadow: none;
         border: 2px solid #333;
         page-break-inside: avoid;
-    }}</style>
-</head>
-
-
-<body>
-    <div class="top-bar">
-        <div class="top-bar-info">
-            <div class="top-bar-name">Kimi Ergulec</div>
-            <div class="top-bar-university">Università di Verona</div>
-        </div>
-        <button id="theme-toggle" class="theme-toggle">
-            <span class="theme-toggle-icon">🌙</span>
-            <span class="theme-toggle-text">Modalità Scura</span>
-        </button>
-    </div>
-
-    <div class="container">
-        <header>
-            <h1>Appunti Matematica Applicata</h1>
-            <p class="subtitle">Kimi Ergulec | Università di Verona</p>
-        </header>
-
-        <div class="subjects-grid">
-            <a href="CalcoloNumerico2/CalcoloNumerico2.html" class="subject-card">
-                <span class="subject-icon">🔢</span>
-                <h2 class="subject-title">Calcolo Numerico 2</h2>
-                <p class="subject-description">Metodi numerici per sistemi lineari, fattorizzazioni matriciali, e metodi iterativi</p>
-            </a>
-
-            <a href="MetodiNumerici/MetodiNumerici.html" class="subject-card">
-                <span class="subject-icon">∫</span>
-                <h2 class="subject-title">Metodi Numerici</h2>
-                <p class="subject-description">Metodi Numerici per la Risoluzione di Equazioni Differenziali, con Matlab</p>
-            </a>
-
-            <a href="Geometria/index.html" class="subject-card">
-                <span class="subject-icon">📐</span>
-                <h2 class="subject-title">Geometria</h2>
-                <p class="subject-description">Spazi vettoriali, trasformazioni lineari, e geometria analitica</p>
-            </a>
-
-            <a href="AlgebraLineare/index.html" class="subject-card">
-                <span class="subject-icon">🔷</span>
-                <h2 class="subject-title">Algebra Lineare</h2>
-                <p class="subject-description">Matrici, determinanti, autovalori e autovettori</p>
-            </a>
-
-            <a href="Probabilita/index.html" class="subject-card">
-                <span class="subject-icon">🎲</span>
-                <h2 class="subject-title">Probabilità</h2>
-                <p class="subject-description">Teoria della probabilità, variabili aleatorie e distribuzioni</p>
-            </a>
-
-            <a href="Fisica/index.html" class="subject-card">
-                <span class="subject-icon">⚛️</span>
-                <h2 class="subject-title">Fisica</h2>
-                <p class="subject-description">Meccanica, termodinamica, elettromagnetismo</p>
-            </a>
-        </div>
-
-        <footer>
-            <p>Anno Accademico 2024-2025 | Università di Verona</p>
-        </footer>
-    </div>
-    <script src="theme.js"></script>
-</body>
-</html>
+    }
+}

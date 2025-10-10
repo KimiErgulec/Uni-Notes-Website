@@ -5,85 +5,18 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Calcolo Numerico 2 - Indice</title>
     <link rel="stylesheet" href="../style.css">
-    <style>
-        .topic-list {
-            list-style: none;
-            padding: 0;
-            margin: 32px 0;
-        }
-
-        .topic-item {
-            margin-bottom: 16px;
-        }
-
-        .topic-link {
-            display: block;
-            background: white;
-            border: 1.5px solid var(--secondary);
-            border-left: 5px solid var(--primary);
-            border-radius: 6px;
-            padding: 20px 24px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s ease;
-        }
-
-        .topic-link:hover {
-            transform: translateX(8px);
-            box-shadow: 0 4px 12px rgba(0, 109, 119, 0.15);
-            border-left-color: #005a63;
-        }
-
-        .topic-number {
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 0.9rem;
-            margin-bottom: 4px;
-            display: block;
-        }
-
-        .topic-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 6px;
-        }
-
-        .topic-description {
-            color: #555;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .course-info {
-            background: white;
-            border: 1px solid var(--secondary);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 24px 0;
-        }
-
-        .course-info h2 {
-            color: var(--primary);
-            font-size: 1.2rem;
-            margin-bottom: 12px;
-        }
-
-        .course-info p {
-            color: #555;
-            margin: 8px 0;
-        }
-
-        .section-header {
-            color: var(--primary);
-            font-size: 1.4rem;
-            margin: 32px 0 16px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--secondary);
-        }
-    </style>
 </head>
 <body>
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
     <a href="../index.html" class="back-home">← Torna indietro</a>
 
     <header>
@@ -110,6 +43,15 @@
                     </p>
                 </a>
             </li>
+            <li class="topic-item">
+                <a href="CN2C1.html" class="topic-link">
+                    <span class="topic-number">Capitolo 1</span>
+                    <div class="topic-title">Metodi per la Risoluzione di Sistemi Lineari</div>
+                    <p class="topic-description">
+                        Introduzione ai sistemi lineari, metodi iterativi, convergenza, metodo di Jacobi
+                    </p>
+                </a>
+            </li>
 
         </ul>
 
@@ -120,5 +62,6 @@
             <p>• Formulario</p>
         </div>
     </article>
+    <script src="../theme.js"></script>
 </body>
 </html>

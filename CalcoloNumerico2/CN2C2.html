@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Calcolo Numerico 2 - Capitolo 2</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="minimal-wrapper">
+    <a href="CalcoloNumerico2.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Calcolo Numerico 2</h1>
+    </header>
+
+    <article>
+        <body>
+            <p>
+            <header><h2>Metodo del Gradiente Coniugato</h2></header>
+            Il metodo del gradiente coniugato serve per risolvere il sistema $Ax=b$ per $A$ simmetrica è definita positiva. È il metodo più veloce (e migliore).
+            </p>
+
+            <p>
+                Riprendi dagli Appunti quello che manca
+            </p>
+
+            <p>
+                Dimostriamo la Prima propritetá: $$r^{(k+1)T}p^{(k)}=0$$
+                $$r^{(k+1)T}p^{(k)}=\text{ applico formula del residuo } = (r^{(k)}-\alpha^{(k)}Ap^{(k)})^Tp^{(k)}=r^{(k)T}p^{(k)}-\alpha^{(k)}p^{(k)T}A^Tp^{(k)}$$Dove siccome $A$ simmetrica $A^T=A$ perciò sostituendo la definizione di $\alpha$ otteniamo:$$r^{(k)T}p^{(k)}-\frac{p^{(k)T}r^{(k)}}{p^{(k)T}Ap^{(k)}}\cdot p^{(k)T}Ap^{(k)}=0$$ 
+            </p>
+
+            <p>Seconda Proprietà
+                $$p^{(k)T}r^{(k)}=r^{(k)T}r^{(k)}$$
+            </p>
+            
+        </body>
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+</body>
+</html>
