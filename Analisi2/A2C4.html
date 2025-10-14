@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Capitolo 4 - Analisi 2</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="minimal-wrapper">
+
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+    <a href="../Analisi2/Analisi2.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Capitolo 4 - Topologia su $\RR^N$</h1>
+    </header>
+
+    <article>
+        <section>
+            <h2>Topologia su $\RR^N$</h2>
+
+            <p>
+                <div class = "definition">
+                <div class = "definition-title">
+                    Definizione: Insiemi chiusi
+                </div>
+                <p>Un insieme chiuso $C\subset \RR^N$ si dice chiuso se per ogni successione $\{p_n\}\in C$ tale che $p_n\to \bar{p}\in \RR^N$, si ha che $\bar{p}\in C$</p>
+            </div>
+            Per esempio, una curva di livello di una funzione continua è sempre chiusa: questo perchè se ho $f\in \RR^N\to \RR$ continua su tutto $\RR^N$ e $f\inv(c)$ una sua curva di livello per un dato $c\in \RR$, se $p_n\in f\inv(c)$ tale che $p_n\to \bar{p}\in \RR^N$, si ha che $f(p_n)=c\;\forall n$, per la continuità $p_n\to \bar{p}\Ra f(p_n)\to f(\bar{p})$ da cui $f(\bar{p})=c$ ovvero che $\bar{p}\in f\inv(c)$.
+            </p>
+            <p>
+                Lo stesso vale per i Sopralivelli larghi, ovvero $\{f(p)\geq c\}$ ed analogamente per i sottolivelli larghi $\{f(p)\leq c\}$ di funzioni continue sono tutti chiusi.
+            </p>
+
+            <p>
+                <div class = "definition">
+                <div class = "definition-title">
+                    Definizione: Insiemi Aperti
+                </div>
+                <p>Un insieme è aperto se il complementare $\R^N\setminus A$ è chiuso</p>
+            </div>
+            Infatti i sottolivelli stretti di funzioni continue sono aperti, infatti $f\inv((-\infty,c))$ è il complementare in $\R^N$ di $f\inv([c,+\infty])$ che abbiamo visto è un chiuso, essente un sopra/sotto livello largo siccome include $c$.
+            </p>
+
+            <p>
+                <div class = "definition">
+                <div class = "definition-title">
+                    Definizione: Palla Euclidea
+                </div>
+                <p>Sia $|p|\equiv |p|_2$, la norma euclidea di $p\in \R^N$. Per $\bar{p}\in \R^N$ ed $r\gt 0$ l'insieme $$B_r(\bar{p})=\{p\in \R^N,|p-\bar{p}|\lt r\}\equiv f\inv ((-\infty,r)), f(p)=|p-\bar{p}|$$ dei punti distanti meno di $r$ da $\bar{p}$ si dice palla (euclidea) di raggio $r$ e di centro $\bar{p}$</p>
+                </div>
+            </p>
+
+            <p>
+                <div class = "definition">
+                <div class = "definition-title">
+                    Definizione: Insieme Limitato
+                </div>
+                <p>Un insieme $D\subset \R^N$ si dice limitato se esiste $M\gt 0$ tale che $|p|\leq M$ per ogni $p\in D$ o equivalentemente se esiste $L\gt 0$ tale che $D\subset B_L(0)$</p>
+                </div>
+                Quindi se esiste una palla di centro $0$ e raggio limitato (minore di $\infty$) allora si dice limitato.
+                <div class = "definition">
+                <div class = "definition-title">
+                    Definizione: Insieme Compatto
+                </div>
+                <p>Un insieme $D\subset \R^N$ si dice compatto se per ogni successione $\{p_k\}_k\subset D$ esiste una sottosuccessione convergente a $\bar{p}$, per un opportuno $\bar{p}\in D$</p>
+                </div>
+            </p>
+
+            <p>
+                <div class="lemma">
+                <div class="lemma-title">Lemma: Heine-Borel di caratterizzazione degli insiemi compatti in $\R^N$</div>
+                <p>
+                    $D\subset \R^N$ è compatto se e solo se è chiuso e limitato
+                </p>
+            </div>
+            La nozione di compattezza è centrale in analisi siccome negli insiemi compatti ogni successione ammette almeno un punto limite.
+            </p>
+
+            <p>
+                <div class = "theorem">
+                <div class = "theorem-title">
+                    Teorema di Weierstrass
+                </div>
+                <p>Una funzione $f:D\subset \R^N\to \R$ continua su un dominio $D$ compatto, ammette massimo e minimo.</p>
+                <p>
+                    <div class = "corollary">
+                <div class = "corollary-title">
+                    Dimostrazione
+                </div>
+                <p>Si sfrutta la compattezza delle successioni massimizzanti (o rispettivamente minimizzanti). Sia $y_k=f(p_k)$ una successione minimizzante, ovvero $f(p_k)\to \inf_{D}(f)$. Allora $$\exists \{p_{k_{n}}\}\subset \{p_k\}\quad \text{t.c} \quad p_{k_n}\to \bar{p}\in D$$per la compattezza di $D$. D'altra parte $f({p_{k_n}})\to f(\bar{p})$ per continuità di $f$ perciò $\Ra$ $$\underbrace{f(\bar{p})}_{=\min\{f(p);p\in D\}} = \inf\{f(p); p\in D\}\quad \quad \square$$</p>
+            </div>
+                </p>
+            </div>
+            </p>
+            
+
+
+            <h3>Titoletto 3</h3>
+            <p>
+                Paragrafo
+            </p>
+
+            <h3>Titoletto 3</h3>
+            <ol>
+                <li>
+                    elemento
+                </li>
+
+                <li>
+                    elemento
+                </li>
+
+                <li>
+                    elemento
+
+                </li>
+            </ol>
+
+            <div class="lemma">
+                <div class="lemma-title">Lemma Esempio</div>
+                <p>
+                    Esempio
+                </p>
+            </div>
+
+            <div class = "proposition">
+                <div class = "proposition-title">
+                    Proposizione Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+            <div class = "corollary">
+                <div class = "corollary-title">
+                    Corollario Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+            <div class = "theorem">
+                <div class = "theorem-title">
+                    Teorema Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+            <div class = "definition">
+                <div class = "definition-title">
+                    Definizione Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+        </section>
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+     <script src="../theme.js"></script>
+</body>
+</html>

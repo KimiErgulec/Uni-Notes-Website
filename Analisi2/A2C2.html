@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Capitolo 2 - Analisi 2</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="minimal-wrapper">
+
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+    <a href="./Analisi2.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Capitolo 2 - Norme e Distanze su $\mathbb{R}^N$</h1>
+    </header>
+
+    <article>
+        <section>
+            <h2>Norme</h2>
+            <p>
+                Per un punto che definiremo con un vettore $N$ dimensionale $(x_1,...,x_n)$, definiamo: $$|p|_1:=\sum_{i=1}^{N}|x_i|\quad\quad |p|_2 :=\sqrt{\sum_{i=1}^N|x_i|^2}\quad\quad |p|_\infty := \max_{1\leq i \leq N }|x_i|$$
+                Dove la prima è detta norma $1$ o norma "Manhattan", la seconda è la norma euclidea o norma $2$, la terza è la norma infinito.
+            </p>
+
+            <h3>Proprietà di tutte le Norme</h3>
+            Tutte le funzioni $|\;\;\;|_*:\RR^N\to \RR$ dove $*=1,2,\infty$ verificano le seguenti proprietà, che discendono dalle proprietà del valore assoluto su $\RR$.
+            <p>
+            <ol>
+                <li>
+                    <i>Positivà</i>: $\quad|p|_*\geq 0\quad \forall p\in \RR^N , \quad|p|_* = 0 \sse p = 0\in \RR^N$
+                </li>
+
+                <li>
+                    <i>1-omogeneità</i>: $\quad |\lambda \cdot p|_* = |\lambda|\cdot |p|_* \quad \quad p\in \RR^N,\quad \forall \lambda \in \RR$
+                </li>
+
+                <li>
+                    <i><b>Disuguaglianza Triangolare</b></i>: $\quad |p+q|_* \leq |p|_* + |q|_*\quad \forall p,q \in \RR^N$ molto importante
+
+                </li>
+            </ol>
+            </p>
+
+            <p>
+                <div class = "definition">
+                <div class = "definition-title">
+                    Definizione: Norma
+                </div>
+                <p>Una norma su $\RR^N$ è una qualunque funzione che verifichi le proprietà 1,2,3 elencate sopra.</p>
+                </div>
+            Attraverso una norma si può generalizzare la nozione di lunghezza di un vettore, o di intensità di una grandezza fisica vettoriale.
+
+                <div class = "definition">
+                <div class = "definition-title">
+                    Definizione: Spazio Vettoriale Normato
+                </div>
+                <p>Uno Spazio Vettoriale su cui è definita una norma, si dice Spazio Vettoriale Normato</p>
+                </div>
+            </p>
+
+            <p>
+                <h3>Distanze</h3>
+                le distanze sono un concetto molto connesso alle norme, infatti si ricavano attraverso le norme. Ciascuna norma definisce una distanza.
+            </p>
+
+            <p>
+                La norma euclidea di un vettore è la distanza del punto (coordinate del punto finale del vettore) dall'origine $0\in \RR^N$. Viene naturale rendersene conto dopo aver guardato alla formula, che è semplicemente il calcolo dell'ipotenusa di un triangolo retto dato i cateti.
+            </p>
+
+            <p>
+                Le norme definiscono una distanza di un punto ad un'altro, possiamo definire delle nuove funzioni:
+                <ol>
+                    <li>
+                        Definiamo $d_1(p,q)=|p-q|_1$. Calcolandolo notiamo che $d_1(p,q)$ è la somma delle distanze delle componenti di $p,q\in \RR^N$
+                    </li>
+                    <li>
+                        Definiamo $d_2(p,q) = |p-q|_2$. Calcolandolo notiamo che $d_2(p,q)$ è esattamente la distanza tra $p,q\in \RR^N$
+                    </li>
+                    <li>
+                        Definiamo $d_\infty(p,q) = |p-q|_\infty$ la massima distanza delle componenti di $p,q\in \RR^N$
+                    </li>
+                </ol>
+                Le distanze $d_*$ con $*=1,2,\infty$ verificano le seguenti proprietà (esattamente come le norme):
+                <ol>
+                    <li>
+                        <i>Positività:</i> $d_*(p,q)\geq 0 \quad ; \quad d_*(p,q)=0 \sse p=q$
+                    </li>
+                    <li>
+                        <i>Simmetria:</i> $d_*(p,q)= d_*(q,p)\quad \forall q,p\in \RR^N$
+                    </li>
+                    <li>
+                        <i>Disuguaglianza triangolare:</i> $d_*(p,r)\leq d_*(p,q)+d_*(q,r)\quad \forall p,q,r\in \RR^N$
+                    </li>
+                </ol>
+                <div class = "definition">
+                <div class = "definition-title">
+                    Definizione: Distanza
+                </div>
+                <p>Una distanza su $\RR^N$ è una qualsiasi funzione che verifica le proprietà 1,2,3 elencate sopra.</p>
+                </div>
+
+                Proprietà sempre valida: $$|p|_\infty \leq |p|_2\leq |p|_1 \leq N\cdot |p|_\infty \quad \text{per} \; p\in \RR^N$$
+            </p>
+
+        </section>
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+     <script src="../theme.js"></script>
+</body>
+</html>

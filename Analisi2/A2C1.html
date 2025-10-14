@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Metodi Numerici per la Risoluzione di Equazioni Differenziali - Capitolo 1</title>
+    <title>Analisi 2 Capitolo 1</title>
 
     <!-- KaTeX CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
@@ -12,14 +12,57 @@
 </head>
 
 <body class="minimal-wrapper">
-    <a href="Analisi2.html" class="back-home">← Torna indietro</a>
+
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+    <a href="../Analisi2/Analisi2.html" class="back-home">← Torna indietro</a>
 
     <header>
-        <h1>Capitolo 1</h1>
+        <h1>Capitolo 1 - Funzioni Multivariabili</h1>
     </header>
 
     <article>
-        
+        <section>
+            <h2>Funzioni a multiple variabili</h2>
+            <p>
+                Funzioni a multple variabili sono funzioni che hanno multipli input, multipli output o entrambi. Un esempio di una funzione a multiple variabili sono le mappe che mostrano la temperatura di una certa zona. Prendono come input 3 variabili come longitudine, latitudine ed altezza, e restituiscono un dato ovvero la temperatura, in questo caso abbiamo una funzione del tipo $\RR^3 \to \RR$ ovvero prendono un vettore di 3 dimensioni e restituiscono un numero che ne indica la temepratura, spesso mostrata con colori.
+            </p>
+            <p>
+                Aventi una funzione di $N$ variabili: $${f:D\subset \RR^N\to\RR}\atop{p\equiv (x_1,...,x_N)\mapsto f(x_1,...,x_N)}$$
+                Da $N\geq 2$ allora ne studieremmo gli insiemi di livello che sono:
+
+                <div class = "definition">
+                <div class = "definition-title">
+                    Definizione: Insiemi di Livello
+                </div>
+                <p>Gli insiemi di livello, sottolivello e sopralivello di una funzione $$f:D\subset \RR^N\to \RR$$ sono definiti rispettivamente da 
+                    <ol>
+                        <li>
+                            $$f\inv(c)\cap D = \{(x,y)\in D,f(x,y)=c\}$$
+                        </li>
+                        <li>
+                            $$f\inv((-\infty,c))\cap D = \{(x,y)\in D,f(x,y)\lt c\}$$
+                        </li>
+                        <li>
+                            $$f\inv((c,+\infty))\cap D=\{(x,y)\in D,f(x,y)\gt c\}$$
+                        </li>
+                    </ol>
+                    Gli insiemi di livello di una funzione formano una partizione del dominio della funzione, ovvero sono a due a due disgiunti e la loro unione è tutto il dominio.
+                </p>
+                </div>
+
+                Un modo per ricordarselo è che una curva di livello è una curva di frontiera, tutti i punti che valgono $f\inv(c)$ che appartengono al dominio. $f\inv$ significa in realtà che siamo interessati nei punti del dominio, non nel codominio, perciò ogni punto che troveremo avrà dimensione $N$.
+            </p>
+
+        </section>
     </article>
 
     <!-- KaTeX and auto-render -->
@@ -55,5 +98,6 @@
         });
     });
     </script>
+     <script src="../theme.js"></script>
 </body>
 </html>

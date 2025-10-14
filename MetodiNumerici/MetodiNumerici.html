@@ -6,84 +6,240 @@
     <title>Metodi Numerici Per risoluzione di Equazioni Differenziali - Indice</title>
     <link rel="stylesheet" href="../style.css">
     <style>
-        .topic-list {
-            list-style: none;
-            padding: 0;
-            margin: 32px 0;
-        }
+        /* ============================================
+   MAIN CONTAINER
+   ============================================ */
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 20px;
+    flex: 1;
+}
 
-        .topic-item {
-            margin-bottom: 16px;
-        }
+header {
+    text-align: center;
+    margin-bottom: 48px;
+}
 
-        .topic-link {
-            display: block;
-            background: white;
-            border: 1.5px solid var(--secondary);
-            border-left: 5px solid var(--primary);
-            border-radius: 6px;
-            padding: 20px 24px;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s ease;
-        }
+h1 {
+    color: var(--primary);
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    margin-bottom: 12px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
 
-        .topic-link:hover {
-            transform: translateX(8px);
-            box-shadow: 0 4px 12px rgba(0, 109, 119, 0.15);
-            border-left-color: #005a63;
-        }
+.subtitle {
+    color: var(--text-muted);
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    font-weight: 400;
+}
 
-        .topic-number {
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 0.9rem;
-            margin-bottom: 4px;
-            display: block;
-        }
 
-        .topic-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 6px;
-        }
+/* ============================================
+   SUBJECTS GRID
+   ============================================ */
+.subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
 
-        .topic-description {
-            color: #555;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
+.subject-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border-light);
+    border-left: 5px solid var(--primary);
+    border-radius: 12px;
+    padding: 28px;
+    transition: var(--transition);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+}
 
-        .course-info {
-            background: white;
-            border: 1px solid var(--secondary);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 24px 0;
-        }
+.subject-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+                rgba(0, 109, 119, 0.05) 0%, 
+                transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
 
-        .course-info h2 {
-            color: var(--primary);
-            font-size: 1.2rem;
-            margin-bottom: 12px;
-        }
+.subject-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-left-color: var(--hover);
+}
 
-        .course-info p {
-            color: #555;
-            margin: 8px 0;
-        }
+.subject-card:hover::before {
+    opacity: 1;
+}
 
-        .section-header {
-            color: var(--primary);
-            font-size: 1.4rem;
-            margin: 32px 0 16px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--secondary);
-        }
+.subject-card:active {
+    transform: translateY(-3px);
+}
+
+.subject-icon {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.subject-card:hover .subject-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.subject-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+.subject-description {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 32px 20px;
+    border-top: 1px solid var(--border-light);
+    background: var(--card-bg);
+}
+
+footer p {
+    margin: 4px 0;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 768px) {
+    body {
+        padding-top: 120px; /* More space for wrapped header */
+    }
+    
+    .top-bar {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+        align-items: flex-start;
+    }
+    
+    .top-bar-info {
+        width: 100%;
+    }
+    
+    .theme-toggle {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .subjects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .subject-card {
+        padding: 24px;
+    }
+    
+    .container {
+        padding: 24px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-bar-name {
+        font-size: 1rem;
+    }
+    
+    .top-bar-university {
+        font-size: 0.8rem;
+    }
+    
+    .subject-icon {
+        font-size: 2rem;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+.theme-toggle:focus-visible,
+.subject-card:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+    .top-bar,
+    .theme-toggle {
+        display: none;
+    }
+    
+    body {
+        padding-top: 0;
+        background: white;
+    }
+    
+    .subject-card {
+        box-shadow: none;
+        border: 2px solid #333;
+        page-break-inside: avoid;
+    }}
     </style>
 </head>
-<body>
+<body class="minimal-wrapper">
+
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+
     <a href="../index.html" class="back-home">← Torna indietro</a>
 
     <header>
@@ -120,5 +276,6 @@
             <p>• Formulario</p>
         </div>
     </article>
+    <script src="../theme.js"></script>
 </body>
 </html>

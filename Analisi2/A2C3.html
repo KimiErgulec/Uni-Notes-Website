@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Capitolo 3 - Analisi 2</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="minimal-wrapper">
+
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+    <a href="../Analisi2/Analisi2.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Capitolo 3 - Limiti e Continuità per funzioni di più variabili</h1>
+    </header>
+
+    <article>
+        <section>
+            <h2>Limiti</h2>
+
+            <p>
+                Attraverso le funzioni distanza, possiamo ottenere una nozione di limite di una successione, e quindi di limite di una funzione definita su uno spazio metrico $(X,d)$ per $f:X\to \RR$. In $\RR^N$, se $d_*$ è una distanza, si ha che 
+
+                <div class = "definition">
+                <div class = "definition-title">
+                    Definizione: Limite della Successione
+                </div>
+                <p>Dati $\bar{p}\in \RR^N$ e $p_k\in \RR^N,k\in \NN$, si dice che $\bar{p}$ è il limite della successione $\{p_k\}_{k\in \NN}$ se $d_*(p_k,\bar{p})\to 0$ per $k\to \infty$ (limite in $\RR$) e in tal caso si dice che la successione è convergente a $\bar{p}$</p>
+            </div>
+            Questa definizione dice che se la distanza tra le iterazioni $k$-esime di $p_k$ si avvicinano sempre di più a $\bar{p}$ in modo che $$\lim_{k\to \infty}d_*(p_k,\bar{k})=0$$ allora la successione converge a $\bar{p}$.
+
+            <div class="lemma">
+                <div class="lemma-title">Osservazione</div>
+                <p>
+                    La definizione dipende dalla distanza scelta, tuttavia può accadere che due distanze diverse definiscano successioni convergenti identiche, ad esempio $p_k\to \bar{p}\in \RR^N$ rispetto alla distanza euclidea $d_2$, allora $p_k\to \bar{p}$ anche rispetto a $d_\infty$ siccome $d_{\infty}(p_k,\bar{p})\leq d_2(p_k,\bar{p})\to 0$. Esso significa che $d_2$ lo maggiora e se la nostra successione converge per $d_2$ allora converge per forza per $d_\infty$. Questo vale anche quindi per $d_1$ siccome abbiamo dimostrato che $d_\infty(p_k,\bar{p})\to 0$ allora $d_1(p_k,\bar{p})\leq N\underbrace{d_\infty(p_k,\bar{p})}_{\to 0}$. Infatti $d_1,d_2,d_\infty$ si dicono equivalenti siccome $$d_2(p_k,\bar{p})\to 0 \sse d_\infty(p_k,\bar{p})\to 0 \sse d_1(p_k,\bar{p})\to 0$$
+                </p>
+            </div>
+            I limiti si effettuano per componenti, ovvero che $$d_*(p_k,\bar{p})\to 0 \sse (x_k)_j\to (\bar{x})_j\quad \forall j=1,...,N$$
+            </p>
+
+            <p>
+                <div class = "definition">
+                <div class = "definition-title">
+                    Definizione: Punto di Accumulazione e Continuità
+                </div>
+                <p>Data una funzione $f:D\subset \RR^N \to \RR$ e $\bar{p}\in D$, $\bar{p}$ è punto di accumulazione per $D$ (ovvero esiste una successione $\bar{p}\neq q_k\in D$ convergente a $\bar{p}$) si dice che $f$ è continua in $\bar{p}$ se per ogni successione $\bar{p}\neq p_k\in D$ convergente a $\bar{p}$ si ha che $$\lim_{k\to \infty}f(p_k)\to f(\bar{p})$$</p>
+            </div>
+            </p>
+
+            <p>
+                Tutti i polinomi sono funzioni continue siccome il limite delle somme è la somma dei limiti, stesso vale per i prodotti e per i quozienti.
+            </p>
+
+        </section>
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+     <script src="../theme.js"></script>
+</body>
+</html>
