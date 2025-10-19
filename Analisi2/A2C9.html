@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Calcolo 2 C2</title>
+    <title>Template</title>
 
     <!-- KaTeX CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
@@ -23,20 +23,36 @@
             <span class="theme-toggle-text">Modalità Scura</span>
         </button>
     </div>
-    <a href="index.html" class="back-home">← Torna indietro</a>
+    <a href="Analisi2.html" class="back-home">← Torna indietro</a>
 
     <header>
-        <h1>Capitolo 2 - Calcolo 2</h1>
+        <h1>Capitolo 9</h1>
     </header>
 
     <article>
         <section>
-            <h2>Titoletto 2</h2>
+            <h2>Proprietà del Gradiente</h2>
 
-            <h3>Titoletto 3</h3>
             <p>
-                Paragrafo
+                Sia $f:D\subset \R^N\to\R$ dove $D$ aperto e $f$ differenziabile in $D$, allora esiste il gradiente di $f$ in ogni punto di $D$: $$\exists \nabla f(p_0)\forall p_0\in D$$
             </p>
+
+            <ol>
+                <li>
+                    Il gradiente $\nabla f(p_0)$ individua la direzione di massima crescita di $f$ in $p_0$ e la norma euclidea $|\nabla f(p_0)|$ dà il massimo tasso di crescita di $f$ in $p_0$. Infatti possiamo dimostrarlo tenendo conto che: $$D_vf(p_0) = \lt\nabla f(p_0),v\gt = |\nabla f(p_0)|\quad \forall v$$Perciò ogni direzione ha un tasso di crescita minore o uguale a $\nabla f$ nel punto $p_0$.
+                    Se infatti $v = \frac{\nabla f(p_0)}{|\nabla f(p_0)|}$ si avrebbe giustamente che $|v|=1$ ma che: $$D_v f(p_0)= \lt \nabla f(p_0),\frac{\nabla f(p_0)}{|\nabla f(p_0)|}\gt = \frac{1}{|\nabla f(p_0)|}\lt \nabla f (p_0),\nabla f(p_0)\gt =\nabla f (p_0)$$
+                    Quindi il tasso massimo è $|\nabla f(p_0)|$ e la direzione massima è $v= \frac{\nabla f(p_0)}{|\nabla f (p_0)|}$
+                </li>
+                <li>
+                    Il gradiente è ortogonale agli insiemi di livello. Se $v$ è una direzione ortogonale a $\nabla f(p_0)$ allora $D_v f(p_0) = \lt\nabla f(p_0),v\gt = 0$ ovvero la funzione ha tasso di crescita nullo lungo la direzione $v$, pertanto $\nabla f(p_0)$ è sempre perpendicolare a $\nabla f(p_0)$ e viceversa.
+                </li>
+                <li>
+                    Se $p_0\in D$ è un punto di minimo o massimo locale di $f$ allora $\nabla f(p_0)= 0$. Questo si verifica studiando $t\mapsto f(t,y_0)$, cercando un massimo o minimo, ma esso combacia con $x_0$ perciò $\frac{\partial f}{\partial x}(x_0,y_0)=0$ ed analogamente per $y_0$
+                </li>
+                <li>
+                    Algoritmo del primo ordine per la ricerca dei massimi e minimi locali. Non finito.
+                </li>
+            </ol>
 
             <h3>Titoletto 3</h3>
             <ol>

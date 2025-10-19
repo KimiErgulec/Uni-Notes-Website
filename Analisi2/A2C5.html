@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Calcolo 2 C2</title>
+    <title>Capitolo 5 - Analisi 2</title>
 
     <!-- KaTeX CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
@@ -23,72 +23,35 @@
             <span class="theme-toggle-text">Modalità Scura</span>
         </button>
     </div>
-    <a href="index.html" class="back-home">← Torna indietro</a>
+    <a href="../Analisi2/Analisi2.html" class="back-home">← Torna indietro</a>
 
     <header>
-        <h1>Capitolo 2 - Calcolo 2</h1>
+        <h1>Capitolo 5 - Spazi Metrici Completi</h1>
     </header>
 
     <article>
         <section>
-            <h2>Titoletto 2</h2>
+            <h2>Tutto su Cauchy e Completezza di $\R^N$</h2>
 
-            <h3>Titoletto 3</h3>
             <p>
-                Paragrafo
+                <div class = "definition">
+                <div class = "definition-title">
+                    Definizione: successione di Cauchy
+                </div>
+                <p>Sia $X$ uno spazio metrico dotato di distanza $d$; una successione $\{p_k\}_{k\in \NN}\subset X$ è di Cauchy in $X$ (rispetto alla distanza $d$) se $\forall \epsilon >0$ esiste $N\in \NN$ tale che $\forall n,m \geq N$ $$d(p_n,p_m)\lt \epsilon$$</p>
+                </div>
+            Ovvero, parafrasato, significa che tutti i punti della successione sono vicini tra loro per iterazioni grandi ovvero $k$ abbastanza grande.
             </p>
 
-            <h3>Titoletto 3</h3>
-            <ol>
-                <li>
-                    elemento
-                </li>
-
-                <li>
-                    elemento
-                </li>
-
-                <li>
-                    elemento
-
-                </li>
-            </ol>
-
-            <div class="lemma">
-                <div class="lemma-title">Lemma Esempio</div>
-                <p>
-                    Esempio
-                </p>
-            </div>
-
-            <div class = "proposition">
-                <div class = "proposition-title">
-                    Proposizione Titolo
-                </div>
-                <p>esempio</p>
-            </div>
-
-            <div class = "corollary">
-                <div class = "corollary-title">
-                    Corollario Titolo
-                </div>
-                <p>esempio</p>
-            </div>
-
-            <div class = "theorem">
-                <div class = "theorem-title">
-                    Teorema Titolo
-                </div>
-                <p>esempio</p>
-            </div>
-
-            <div class = "definition">
+            <p>
+                <div class = "definition">
                 <div class = "definition-title">
-                    Definizione Titolo
+                    Definizione: Spazio Metrico Completo
                 </div>
-                <p>esempio</p>
+                <p>$(X,d)$ è uno spazio metrico completo se ogni successione di Cauchy in $X$ è convergente in $X$</p>
             </div>
-
+            $\RR^N$ è completo rispetto alla distanza euclidea, ha una dimostrazione e proposizione ma non la riporto. Inoltre, essendo le distanze $d_1,d_2,d_\infty$ equivalenti, allora $\R^N$ è completo rispetto a tutte e tre
+            </p>
         </section>
     </article>
 

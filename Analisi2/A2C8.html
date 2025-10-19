@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Capitolo 8 - Analisi 2</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="minimal-wrapper">
+
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+    <a href="Analisi2.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Capitolo 8</h1>
+    </header>
+
+    <article>
+        <section>
+            <h2>Funzioni Differenziabili</h2>
+
+            <p>
+                Come già ne abbiamo parlato lo scorso capitolo, una funzione differenziabile è una funzione particolare, in cui possimao calcolare una derivata direzionale usando le derivate parziali. Questo si può fare affinchè le derivate parziali formino un piano tangente alla curva nel punto d'interesse. Se questo piano tangente esiste in ogni punto della funzione, la funzione si dice differenziabile.
+
+                <div class = "definition">
+                <div class = "definition-title">
+                    Definizione: Funzione Differenziabile
+                </div>
+                <p>Sia $f:D\subset \RR^N\to \R$ una funzione, si dice <i>Differenziabile</i> in $p_0\in D$ se $\exists\; L:\RR^N\to\RR$ lineare tale che $$\lim_{p\to p_0}\frac{|f(p)-f(p_0)-L(p-p_0)|}{|p-p_0|}=0\sse \lim_{p\to p_0}f(p)=f(p_0)+L(p-p_0)+o(|p-p_0|)$$</p>
+            </div>
+            Dove la funzione $L$ dipende a priori da $p_0\in D$ e si indica $df(p_0):\RR^N\to\R$, il differenziale di $f$ in $p_0$. Possiamo perciò esprimer lo sviluppo di Taylor al primo ordine in tale modo: $$f(p)=f(p_0)+df(p_0)(p-p_0)+o(|p-p_0|)$$
+            </p>
+            
+            <h3>Proprietà di $f$ in $p_0\in D$</h3>
+            <p>
+                <ol>
+                    <li>
+                        Aventi una funzione differenziabile, allora sappiamo che esistono le derivate parziali in ogni direzione: $$\exists \frac{\partial f}{\partial x_i}(p_0)\quad \forall  i=1,...,N\sse \exists \nabla f(p_0)$$ e si ha la rappresentazione $df(p_0)\equiv \nabla f(p_0)^T$ ovvero $$f(p)=f(p_0)+\nabla f(p_0)^T\cdot (p-p_0)+o(|p-p_0|)$$essente il gradiente un vettore colonna, per moltiplicarlo al vettore colonna $p$.
+                    </li>
+                    <li>esiste $D_v f(p_0)\quad \forall v\in \R^N,|v|=1$ e vale $$D_vf(p_0)=df(p_0)\cdot v = \lt\nabla f (p_0),v\gt$$</li>
+                    <li>
+                        $f$ è continua in $p_0$ siccome $$f(p)-f(p_0) = \lt \nabla f(p_0),p-p_0\gt + o(|p-p_0|)$$$$\Ra |f(p)-f(p_0)|\leq |\nabla f(p_0)|\cdot |p-p_0|+o(|p-p_0|)$$dove quando $p\to p_0$ allora il tutto tende a 0
+                    </li>
+                </ol>
+            </p>
+
+            <h3>Condizioni Sufficienti per la Differenziabilità</h3>
+
+            <div class = "definition">
+                <div class = "definition-title">
+                    Definizione $C^1$
+                </div>
+                <p>Sia $f:A\subset \R^N\to \R^N$ dove $A$ aperto, ed $f$ continua su $A$ (ovvero $f\in C^0(A)$) e con derivate parziali continue $\forall p_0\in A$, allora si dice $f\in C^1(A)$</p>
+            </div>
+
+            <div class = "theorem">
+                <div class = "theorem-title">
+                    Teorema del Differenziale Totale
+                </div>
+                <p>Sia $f:D\subset \R^N\to \R,p_0\in D$ punto interno. Se per $\delta\gt0$, in $B_{\delta}(p_0)$ esistono le derivate parziali di $f$ e sono continue in $p_0$, allora $f$ è differenziabile in $p_0$ ovvero se $f\in C^1(D)\Ra f$ è differenziabile $\forall p_0\in D$ dove $D$ aperto.</p>
+                <h4>Dimostrazione:</h4>
+                <p>
+                    Sia $p_0=(x_0,y_0)$ e sia $p=(x,y)$ sufficentemente vicino a $p_0$. Sia $q=(x,y_0)$. La mappa $t\mapsto f(t,y_0)$ ovvero una restrizione al segmento $[p_0,q]$ è derivabile per $t\in [x_0,x]$, dove la derivata è $\frac{\partial f}{\partial x}(t,y_0)$. Quindi continua su $[x_0,x]$. Per il teorema del valor medio di Lagrange, $\exists\tau$ compreso tra $x_0$ e $x$ tale che $$f(q)-f(p_0) = \frac{\partial f}{\partial x}(\tau,y_0)\cdot (x-x_0)$$
+                    Analogamente applicando il teorema del valor medio a $s\mapsto f(x,s)$ per $y_0\lt s \lt y$ restringendo $s$ al segmento $[q,p]$ si ottiene per un certo $\sigma$ che $$f(p)-f(q) = \frac{\partial f}{\partial y}(x,\sigma)\cdot (y-y_0)$$
+
+                    Consideriamo ora il quoziente $$\frac{|f(p)-f(p_0)-df(p_0)\cdot (p-p_0)|}{|p-p_0|}= \frac{|f(p)-f(q)+f(q)-f(p)-\frac{\partial f}{\partial x}(p_0)(x-x_0)-\frac{\partial f}{\partial y}(p_0) (y-y_0)|}{|p-p_0|}=$$
+                    $$\frac{|\left( \frac{\partial f}{\partial x}(\tau,y_0)-\frac{\partial f}{\partial x}(x_0,y_0)\right)(x-x_0)+\left(\frac{\partial f}{\partial y}(x,\sigma)-\frac{\partial f}{\partial y}(x_0,y_0)\right)(y-y_0)|}{|p-p_0|}\leq$$
+                    $$\left|\frac{\partial f}{\partial x}(\tau,y_0)-\frac{\partial f}{\partial x}(x_0,y_0)\right|\cdot \frac{|x-x_0|}{|p-p_0|}+ \left|\frac{\partial f}{\partial y}(x,\sigma)-\frac{\partial f}{\partial y}(x_0,y_0)\right|\cdot \frac{|y-y_0|}{|p-p_0|}$$
+                    Essendo il primo valore assoluto continuo in $p_0$ si annulla, $\frac{|x-x_0|}{|p-p_0|}\leq 1$ quindi non abbiamo problemi di limiti, stesso per la seconda parte.
+                    Pertanto il limite tende a $0$ per $p$ che tende a $p_0$ e perciò $f$ è differenziabile in $p_0$ $\square$
+
+                </p>
+            </div>
+
+        </section>
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+     <script src="../theme.js"></script>
+</body>
+</html>

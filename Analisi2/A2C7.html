@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Capitolo 7 - Analisi 2</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="minimal-wrapper">
+
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+    <a href="Analisi2.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Capitolo 7 - Derivate direzionali e parziali</h1>
+    </header>
+
+    <article>
+        <section>
+            <h2>Funzioni a più variabili</h2>
+            <p>
+                Tipicamente consideremo domini $D$ definiti dalla intersezione/unione finita di sottolivelli/sopralivelli (stretti o larghi) di funzioni continue.
+            </p>
+
+            <h3>Grafico delle funzioni a più variabili</h3>
+            <p>
+                Per una funzione del tipo $${f:D\subset\R^N\to \R}\atop{\begin{bmatrix}x_1\\\vdots \\ x_N\end{bmatrix}\mapsto f(x_1,...,x_N)}$$
+                possiamo trarne il gradico $\Gamma_f$ mostrando il dominio $(x_1,...,x_N)\in D$ e corrispondergli ad ogni punto del dominio, un punto rappresentante $f(x_1,...,x_N)$ in una dimensione aggiuntiva, quindi $\Gamma_f \subset \R^{N+1}$.
+            </p>
+
+            <h3>Derivata Direzionale</h3>
+            <p>
+                Una derivata direzionale per una funzione a più variabili serve a quantificare il tasso di variazione (crescita, decrescita, incremento, decremento) della funzione lungo una direzione data
+            </p>
+
+            <p>
+                Per semplicità di notazione, prenderemo in considerazione $N=2$ per la spiegazione.
+
+                $$f:D\subset \R^2\to \R\atop{p\equiv (x,y)\mapsto f(x,y)}$$ sia $p_0(x_0,y_0)\in D$ un punto interno a $D$, sia $v\in \R^2$ una direzione (ricordando che deve avere norma = 1). La retta $r$ passante per il punto $p_0$ e avente direzione $v$ si descrive mediante la parametrizzazione $$t\mapsto p(t) = \begin{bmatrix}x_0\\y_0\end{bmatrix}+t\underbrace{\begin{bmatrix}a\\b\end{bmatrix}}_{v}\quad \quad t\in \R$$
+                Si ha quindi $p(0)=p_0$. Questa parametrizzazione serve per seguire una definita derizione. Per ora abbiamo parametrizzato solamente il dominio, ovvero modificanod $t$ possiamo viaggiare lungo una retta definita da $v$ sul dominio, ma noi vogliamo anche informazioni sulla funzione stessa. Quindi componiamo la funzione $p(t)$ all'interno di $f$ ottenendo: $$g:[-\epsilon,\epsilon ]\to \R$$ $$[-\epsilon,\epsilon]\ni t \mapsto g(t) := f(p(t))= f(x_0+ta,y_0+tb)\in \R$$
+                Ora otteniamo quindi una funzione che dipende solamente dal parametro $t$, sul cui viaggiamo nella direzione $v$ e troviamo i vari valori di $f(x_0+ta,y_0+tb) = f(p(t))$
+            </p>
+            <p>
+                Se esiste $\frac{dg}{dt}|_{t=0}$ allora tale valore viene detto: <i>Derivata direzionale di $f$ nella direzione $v$ in punto $p_0$</i>.
+                $$\frac{dg}{dt}|_{t=0}:=\frac{d}{dt}|^{f(x_0+ta,y_0+tb)}_{t=0} = D_vf(p_0)$$
+            </p>
+
+            <p>
+                <div class="lemma">
+                <div class="lemma-title">Osservazione</div>
+                <p>
+                    $D_vf(p_0)$ indica di quanto varia la funzione $f$ rispetto al valore $f(p_0)$ quando ci si sposta di un'unità nella direzione $v$.
+                </p>
+            </div>
+            </p>
+
+            <p>
+                <h3>
+                    Derivate Parziali
+                </h3>
+                Se consideriamo variazione lungo le direzioni canoniche ovvero $e_1 = \begin{bmatrix}1\\0\end{bmatrix}$  oppure $e_2= \begin{bmatrix}0\\1\end{bmatrix}$ entrano in gioco le derivate parziali, $$\frac{\partial f}{\partial x}(x_0,y_0): = D_{e_1}f(p_0)\quad\quad\quad \frac{\partial f}{\partial y}(x_0,y_0): = D_{e_2}f(p_0)$$
+            </p>
+            <p>
+            <h4>
+                Calcolo delle derivate parziali
+            </h4>
+            Come definito prima, una derivata parziale è una derivata direzionale con direzione un vettore canonico: $p(t) = (x_0 + 1\cdot t , y_0 + 0\cdot t)\Ra (x_0+t,y_0), \quad g(t) = f(x_0+t,y_0)$. Quindi $$\frac{d}{dt}f(x_0+t,y_0)|_{t=0} = \lim_{t\to 0}\frac{f(x_0+t,y_0)-f(x_0,y_0)}{t} =$$Siccome $f(x_0+t,y_0)$ dipende solamente da $x_0+t$ perchè $y_0$ è una costante, chiamiamo $x=x_0+t$, diventando una funzione della sola $x\mapsto f(x,y_0)$ ed isolando quindi $t=x-x_0$ otteniamo quindi il limite $$ \lim_{x\to x_0}\frac{f(x,y_0)-f(x_0,y_0)}{x-x_0} = \frac{d}{dx}|^{f(x,y_0)}_{x=x_0}$$dove l'analogo vale identico per $y$. Perciò possiamo concludere che il calcolo delle derivate parziali è relativamente semplice, ovvero dobbiamo derivare rispetto ad una sola variabile, considerando l'altra come "costante"
+            </p>
+
+            <p>
+                <div class="lemma">
+                <div class="lemma-title">Osservazione</div>
+                <p>
+                    Per una classe importante di funzioni, ovvero quelle <i>Differenziabili</i>, attraverso le derivate parziali possiamo calcolare le derivate direzionali.
+                </p>
+            </div>
+            </p>
+
+            <p>
+                <h3>Interpretazione Geometrica</h3>
+                Per capire bene cosa sono le derivate direzionali, possiamo fare ricorso alla geometria e alla visualizzazione di esse. Infatti se usiamo la curva $$t\mapsto (x_0+ta,y_0+tb,f(x_0+ta,y_0+tb))$$ che giace sul grafico di $\Gamma_f$ (ricordando che esso è $\in \R^3$), il vettore $$\frac{d}{dt}|_{t=0}\begin{bmatrix}x_0+ta\\y_0+ta\\f(x_0+ta,y_0+tb)\end{bmatrix}$$ è tangente a $\Gamma_f$ in $(x_0,y_0,f(x_0,y_0))$. Il vettore $W=\begin{bmatrix}a\\b\\D_vf(x_0,y_0)\end{bmatrix}$ è in effetti il vettore tangente al punto $x_0,y_0$ del grafico $\Gamma_f$.
+            </p>
+
+            <p>
+                <h3>Vettore Gradiente e Piano Tangente alla Curva</h3>
+                Visto sopra, abbiamo un particolare interesse nel vettore $W$ siccome ci fornisce di informazioni sull'andamento della curva rispetto ad una direzione. Possiamo ottenere questo vettore facendo una combinazione lineare dei vettori delle derivate parziali SOLO se esiste un piano tangente, perchè questo ci assicura che i vettori delle derivate parziali lo generano. Perciò aventi $$W_1 = \begin{bmatrix}1 \\ 0 \\ \frac{\partial f}{\partial x}(p_0)\end{bmatrix},\quad \quad W_2 = \begin{bmatrix}0 \\ 1 \\ \frac{\partial f}{\partial y}(p_0)\end{bmatrix}\quad \quad \Ra \begin{bmatrix}a \\ b \\ D_vf(p_0)\end{bmatrix}= a \begin{bmatrix}1 \\ 0 \\ \frac{\partial f}{\partial x}(p_0)\end{bmatrix}+ b \begin{bmatrix}0 \\1 \\ \frac{\partial f}{\partial y}(p_0)\end{bmatrix}$$
+                $$\Ra D_vf(p_0) = a \cdot \frac{\partial f}{\partial x}(p_0) + b\cdot \frac{\partial f}{\partial y}(p_0) = \lt v, \nabla f(p_0)\gt\quad \quad \nabla f(p_0) = \begin{pmatrix}\frac{\partial f}{\partial x}(p_0) \\ \frac{\partial f}{\partial y}(p_0)\end{pmatrix}$$
+                Quindi, solamente se esiste un piano tangente, possiamo usare la formula $$D_vf(p_0) = \lt v,\nabla f(p_0)\gt$$
+            </p>
+
+            <p>
+                <div class="lemma">
+                <div class="lemma-title">Osservazione</div>
+                <p>
+                    Il grafico di $f$ ha piano tangente in $(p_0,f(p_0))\sse f$ ammette un'approssimazione lineare in $p_0$, ovvero uno sviluppo di Taylor al primo ordine. 
+                </p>
+            </div>
+            <div class = "proposition">
+                <div class = "proposition-title">
+                    Proprietà del Gradiente
+                </div>
+                <p>
+                    <ol>
+                        <li>
+                            Individua la direzione di massima crescita di $f$
+                        </li>
+                        <li>
+                            individua il massimo tasso dicrescita di $f$
+                        </li>
+                        <li>
+                            è ortogonale agli insiemi di livello di $f$
+                        </li>
+                    </ol>
+                </p>
+            </div>
+            </p>
+
+
+        </section>
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+     <script src="../theme.js"></script>
+</body>
+</html>

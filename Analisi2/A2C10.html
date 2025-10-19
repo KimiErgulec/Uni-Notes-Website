@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Capitolo 10 - Analisi 2</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="minimal-wrapper">
+
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+    <a href="Analisi2.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Capitolo 10</h1>
+    </header>
+
+    <article>
+        <section>
+            <h2>Funzioni Vettoriali Differenziabili</h2>
+
+            <p>
+                Se prima lavoravamo con una funzione $f:\R^N\to \R$, ora analizzeremo cosa succedesse se $f:\R^N\to \R^M$.
+            </p>
+
+            <p>
+                Sia $$F:D\subset \R^N \to \R^M\atop{p\equiv \begin{bmatrix}x_1\\ \vdots \\ x_N\end{bmatrix}\mapsto F(p) = \begin{bmatrix}f_1(p)\\ \vdots \\ f_M(p)\end{bmatrix}=\begin{bmatrix}f_1(x_1,...,x_N) \\ \vdots \\ f_M(x_1,...,x_N)\end{bmatrix}}$$
+                Essa sarà differenziabile in $p_0\in D\sse f_i$ è differenziabile in $p_0\forall i = 1,...,M$ e si ha $$F(p)= F(p_0)+\begin{bmatrix}df_1(p_0)(p-p_0)\\\vdots \\ df_M(p_0)(p-p_0)\end{bmatrix}+o(|p-p_0|)$$ ovvero: $$dF(p_0) = \begin{bmatrix}\nabla f_1(p_0)^T \\ \vdots \\ \nabla f_M(p_0)^T\end{bmatrix}_{M\times N} = \left[\frac{\nabla f_i}{\nabla x_j}(p_0)\right]_{i=1,...,M\atop{j=1,...,N}}$$
+                che è la matrice Jacobiana della funzione.
+            </p>
+
+            <p>
+                <div class="lemma">
+                <div class="lemma-title">Osservazione</div>
+                <p>
+                    Le righe della matrice Jacobiana sono i gradienti delle componenti $f_i$ di $F$ per costruzione. Le colonne invece sono i vettori $\frac{\partial F}{\partial x_j}$ che rappresentano i tassi di variazione di $F$ nelle direzioni $e_j$. Questo significa che sono i vettori tangenti alle curve $t\mapsto(p_0+te_j)$ immagini secondo $F$ delle rette coordinate $t\mapsto p_0+te_j$
+                </p>
+            </div>
+            In parole povere, Le righe sono il gradiente, ovvero la direzione della massima crescita rispetto a $x_j$ di $f_j$. Mentre le colonne sono i tassi di variazione rispetto alle direzioni $e_j$.
+            </p>
+
+            <p>
+            <h3>Dilatazione delle lunghezze e delle aree</h3>
+            Le colonne della matrice Jacobiana danno (in norma) i fattori di dilatazione delle lunghezze della trasformazione T (che sia un cambio di coordinate o altro, in generale "dopo aver applicato la funzione"). Mentre il fattore di dilatazione delle aree locali è dato dal parallelogramma generato dalle colonne $DT\cdot e_1 $ e $DT\cdot e_2$ etc... Ovvero $|det DT(x_1,...,x_n)|$
+            </p>
+
+            <p>
+                <h3>Alcuni Esempi</h3>
+                <ol>
+                    <li>
+                        <h4>Passaggio a coordinate Polari:</h4>
+                        Se volessimo passare da $x,y$ a $\rho,\theta$ sappiamo che dobbiamo affidarci alla relazione $$\begin{cases}x = \rho \cos(\theta)\\ y = \rho \sin(\theta)\end{cases}\quad \quad \rho>0,\; 0\leq\theta\lt 2\pi$$
+                        Avendo definito la mappa, otteniamo: $$(x,y) = (\rho\cos(\theta),\rho\sin(\theta))\Ra \begin{bmatrix}x(\rho,\theta)\\ y(\rho,\theta)\end{bmatrix}$$Che non so esattamente perchè descriviamo come la funzione di trasformazione $$T:D\subset \R^2 \to \R^2\atop{r,\theta\mapsto \begin{bmatrix}x(\rho,\theta)\\ y(\rho,\theta)\end{bmatrix}=T(\rho,\theta)}$$
+                        Le coodinate o il piano cartesiano vive nell'immagine di $T$, infatti $$p\equiv \begin{bmatrix}x\\y\end{bmatrix}=T(\rho,\theta)$$ Sapendo questa relazione però possiamo trovare le $\rho$ e $\theta$ che compongono $x,y$. $T\in C^1(D)$ perciò ha le derivate parziali continue in $D$, allora $$\exists dT(\rho,\theta)\quad \forall (\rho,\theta)\in D$$ e la matrice Jacobiana quindi risulterà: $$DT(\rho,\theta) = \begin{bmatrix}\frac{\partial x}{\partial \rho} & \frac{\partial x}{\partial \theta} \\ \frac{\partial y}{\partial \rho} & \frac{\partial y}{ \partial \theta}\end{bmatrix}(\rho,\theta)$$che andando a computare otteniamo $$DT(\rho,\theta)=\begin{bmatrix}\cos(\theta) & -r\sin(\theta) \\ \sin(\theta) & r\cos(\theta)\end{bmatrix}$$ dove la prima riga è $dx(\rho,\theta)$ e la seconda è $dy(\rho,\theta)$ e la prima colonna è il versore rispetto a $\rho$ mentre la seconda colonna è il versore moltiplicato per $\rho$ rispetto alle $\theta$. In fine $det(T(\rho,\theta)) = \rho$
+                    
+                    </li>
+                    
+                </ol>
+            </p>
+
+            <div class="lemma">
+                <div class="lemma-title">Lemma Esempio</div>
+                <p>
+                    Esempio
+                </p>
+            </div>
+
+            <div class = "proposition">
+                <div class = "proposition-title">
+                    Proposizione Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+            <div class = "corollary">
+                <div class = "corollary-title">
+                    Corollario Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+            <div class = "theorem">
+                <div class = "theorem-title">
+                    Teorema Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+            <div class = "definition">
+                <div class = "definition-title">
+                    Definizione Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+        </section>
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+     <script src="../theme.js"></script>
+</body>
+</html>

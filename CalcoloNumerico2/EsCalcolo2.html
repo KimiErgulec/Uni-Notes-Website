@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Calcolo 2 C2</title>
+    <title>Esercizi Svolti</title>
 
     <!-- KaTeX CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
@@ -23,15 +23,29 @@
             <span class="theme-toggle-text">Modalità Scura</span>
         </button>
     </div>
-    <a href="index.html" class="back-home">← Torna indietro</a>
+    <a href="CalcoloNumerico2.html" class="back-home">← Torna indietro</a>
 
     <header>
-        <h1>Capitolo 2 - Calcolo 2</h1>
+        <h1>Esercizi Svolti "Ragionamento"</h1>
     </header>
 
     <article>
         <section>
-            <h2>Titoletto 2</h2>
+            <div class="lemma">
+                <div class="lemma-title">Convergenza Matrice</div>
+                <p>
+                    Data una matrice $A\in \R^{n\times n}$ singolare, ed una decomposizione $A=M-N$ tale che $M$ sia non singolare. Dimostra che il metodo iterativo $$x^{(k+1)}=M\inv Nx^{(k)} +M\inv b$$ per la risoluzione del sistema $Ax=b$ non è convergente:
+                </p>
+
+                <p>
+                    <h4>
+                        Risoluzione:
+                    </h4>
+                    Dobbiamo dimostrare che $\rho(M\in N)\geq 1$, allora non sarà convergente. $$A=M-N\Ra M\inv A = M\inv(M-N)\Ra M\inv A = I-M\inv N$$
+                    Essente $A$ matrice singolare, allora $det(A)=0$ ovvero esiste $Av=0$ per una certa $v$. $$Av=0 \Ra M\inv A v = 0\Ra(I-M\inv N)v = 0\Ra M\inv Nv = 1$$Ovvero che esiste un autovalore $\lambda=1$ perciò $\rho(M\inv N)\geq 1$ perciò la matrice di iterazione $M\inv N$ non converge $\square$
+                </p>
+            </div>
+            
 
             <h3>Titoletto 3</h3>
             <p>

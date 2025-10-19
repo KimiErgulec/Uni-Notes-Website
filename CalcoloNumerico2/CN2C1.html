@@ -136,6 +136,31 @@
                 $$Dx^{(k+1)}=b-(L+U)x^{(k)}\Ra x^{(k+1)}=D\inv b-\underbrace{D\inv(L+U)}_Jx^{(k)}$$ 
                 Dove $J$ è la matrice di iterazione del metodo di <em>Jacobi</em>
             </p>
+            <p>
+            <h3>
+                Metodo di Gauss-Seidel
+            </h3>
+            Jacobi come visto sopra utilizza le iterazioni una alla volta, prima fa una stima e con la stima ne crea una nuova. Una "ottimizzazione" che possiamo implementare facilemnte è di migliorare le stime mano a mano. Se siamo all $k$-esima iterazione, usiamo l'iterazione $k-1$ per trarre le componenti. Quindi otteniamo $x^{(k)}_1$ con l'iterazione di $x_i^{(k-1)}$. Una volta ottenuto $x_1^{(k)}$, invece che usare nuovamente le componenti della iterata precedente, utilizziamo tutti i dati possibili da ricavare nuovi, per esempio il dato che abbiamo appena trovato $x_1^{(k)}$ ed i dati precedenti $x_i^{(k-1)}$ con $i=1,...,n$. Otteniamo quindi Gauss-Seidel:
+            $$x_i^{(k+1)} = \frac{1}{a_{ii}}\left(b_i - \sum_{j=1}^{i-1}a_{ij}x_j^{(k+1)}-\sum_{j=i+1}^n a_{ij}x_j^{(k)}\right)\forall i$$
+            La forma matriciale si presenterà come: $$x^{(k+1)} = -\left(D+L\right)\inv Ux^{(k)}+ (D+L)\inv b$$Dove $-(D+L)\inv U$ è la matrice $GS$ di iterazione.
+            </p>
+            <p>
+                <h3>
+                    Richiamo Teorico di Matrici Definite Positive:
+                </h3>
+                Matrici Definite positive sono matrici quadrate simmetriche la cui forma quadratica $x^TAx>0 \forall x\neq 0$. Ovvero tutti gli autovalori sono strettamente positivi. Questo significa che esiste una matrice triagnolare inferiore $L$ tale che $A = LL^T$ che si chiama fattorizzazione di Cholesky.
+            </p>
+            <p>
+                <h3>
+                    Convergenza del Metodo di Gauss-Seidel
+                </h3>
+                <div class="theorem">
+                <div class="theorem-title">Teorema della convergenza di Gauss-Seidel</div>
+                <p>
+                    Affinchè converga $GS$ $A\in \R^{n\times n}$ 
+                </p>
+                </div>
+            </p>
         </section>
     </article>
 

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Capitolo 6 - Analisi 2</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="minimal-wrapper">
+
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+    <a href="Analisi2.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Capitolo 6 - Funzioni Vettoriali di 1 Variabile - Curve</h1>
+    </header>
+
+    <article>
+        <section>
+            <h2>Operazioni con Funzioni vettoriali ad 1 variabile</h2>
+
+            <p>
+                Data una funzione vettoriale, ovvero una funzione: $$[a,b]=I\subset \R \to \R^N$$ prende un valore di $I$ $$t\mapsto p(t)= \begin{bmatrix}x_1(t)\\\vdots\\x_N(t)\end{bmatrix}$$essa traccierà una traiettoia in $\R^N$, una curva.
+            </p>
+            <p>
+                L'immagine $\Gamma = \{p(t)\in \RR^N;t\in [a,b]\}$ è detta curva parametrica in $\R^N$ dove il parametro è $t$ per capire "a che punto della curva siamo". Molto spesso $t$ è tempo, e traccia il movimento/cambiamento etc di un punto nello spazio dato dalle coordinate restituite $\R^N$
+            </p>
+
+            <h3>Esempio</h3>
+            <p>
+                Sia $$t\mapsto p(t)=\begin{bmatrix}x(t)\\y(t)\end{bmatrix}\subset\R^2$$ Legge oraria di un punto materiale ch esi muove nel piano (ad esempio un grave). Proviamo ad aggiungere numeri ottenendo $$t\mapsto\begin{bmatrix}x(t)\\y(t)\end{bmatrix}=\begin{bmatrix}4t\\-4.9t^2+4.9t\end{bmatrix}$$E possiamo tracciare $0\leq t\leq 1$. Ricordando che i limiti, la continuità e le derivate di funzioni vettoriali si calcolano per componenti, otteniamo: $$\lim_{t\to t_0}p(t) = p(t_0)\sse \lim_{t\to t_0}x_j(t)=x_j(t_0)\quad \forall j = 1,...,N$$
+            </p>
+
+            <p>
+                In particolare, la derivata di una funzione vettoriale è data da $$\frac{dp}{dt}(t_0)\equiv p'(t_0) = \lim_{h\to 0}\frac{1}{h}\cdot \left[p(t_0+h)-p(t_0)\right] = \begin{bmatrix}\lim_{h\to 0 }\frac{x_1(t_0+h)-x_1(t_0)}{h}\\ \vdots \\ \lim_{h\to 0} \frac{x_N(t_0+h)-x_N(t_0)}{h}\end{bmatrix} = \begin{bmatrix}\frac{dx_1}{dt}(t_0) \\\vdots\\ \frac{dx_n}{dt}(t_0)\end{bmatrix}$$ Risolvendolo per componenti.
+            </p>
+
+            <h3>Sviluppo di Taylor al primo ordine</h3>
+            <p>
+                Se $p(t)$ è derivabile in $t_0$, si ha la possibilità di fare lo sviluppo di taylor: $$p(t)=p(t_0)+(t-t_0)\frac{dp}{dt}(t_0)+o(|t-t_0|)$$
+                Ottenendo quindi con le componenti: $$\begin{bmatrix}x_1(t)\\ \vdots \\ x_N(t)\end{bmatrix} = \begin{bmatrix}x_1(t_0)\\ \vdots \\ x_N(t_0)\end{bmatrix} + (t-t_0)\cdot \begin{bmatrix}x_1'(t)\\ \vdots \\ x_N'(t)\end{bmatrix} + \begin{bmatrix}o(|t-t_0|)\\ \vdots \\ o(|t-t_0|)\end{bmatrix}$$che è la miglior approssimazione lineare in $t_0$ di $p(t)$ dove l'immagine $$t\mapsto p(t_0) + (t-t_0)\cdot \frac{dp}{dt}(t_0)$$ è la retta tangente in $p(t_0)$ alla curva
+            </p>
+
+            <h3>Integrale di una funzione vettoriale</h3>
+
+            <p>
+                Aventi una funzione come prima $p(t)$:
+                $$\int_{a}^bp(t)dt = \begin{bmatrix}\int_a^bx_1(t)dt \\ 
+                \vdots \\
+                \int_a^b x_N(t)dt\end{bmatrix}\in \R^N$$
+                come prima si integra per componenti.
+            </p>
+
+        </section>
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+     <script src="../theme.js"></script>
+</body>
+</html>

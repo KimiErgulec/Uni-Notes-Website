@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Calcolo 2 C2</title>
+    <title>Capitolo 12 - Analisi 2</title>
 
     <!-- KaTeX CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
@@ -23,19 +23,47 @@
             <span class="theme-toggle-text">Modalità Scura</span>
         </button>
     </div>
-    <a href="index.html" class="back-home">← Torna indietro</a>
+    <a href="Analisi2.html" class="back-home">← Torna indietro</a>
 
     <header>
-        <h1>Capitolo 2 - Calcolo 2</h1>
+        <h1>Capitolo 12</h1>
     </header>
 
     <article>
         <section>
-            <h2>Titoletto 2</h2>
-
-            <h3>Titoletto 3</h3>
+            <h2>Regola della Catena</h2>
             <p>
-                Paragrafo
+                Sia $f(x,y) = e^{x^2}y$ e le sue derivate $\frac{\partial f}{\partial x}(x,y) = 2xye^{x^2y}$ e $\frac{\partial f}{\partial y}(x,y) = x^2e^{x^2y}$. Sono a loro volta derivabili parzialmente, e si ottengono allora le derivate seconde: $$\frac{\partial}{\partial x}\frac{\partial f}{\partial x}(x,y) = (2y+4x^2y^2)e^{x^2y}\quad \quad \frac{\partial }{\partial y} \frac{\partial f}{\partial x} = (2x+2x^2y)e^{x^2y}$$
+                $$\frac{\partial }{\partial x}\frac{\partial f}{\partial y} = (2x+2x^2y)e^{x^2y}\quad \quad \frac{\partial }{\partial y} \frac{\partial }{\partial y}\frac{\partial f}{\partial y}x^4e^{x^2y}$$
+                Osserviamo che $\frac{\partial }{\partial x}\frac{\partial f}{\partial y} = \frac{\partial }{\partial y}\frac{\partial f}{\partial x}$
+                <div class = "definition">
+                <div class = "definition-title">
+                    Definizione di $C^2(D)$
+                </div>
+                <p>$f:D\subset \R^N\to \R$ tale che esistono derivate parziali seconde $$\frac{\partial }{\partial x_i}\frac{\partial f}{\partial x_j}\forall i,j=1,...,N$$ e sono continue in $D$, si dice $f\in C^2(D)$</p>
+            </div>
+            <div class = "theorem">
+                <div class = "theorem-title">
+                    Teorema di Schwarz
+                </div>
+                <p>Sia $f\in C^2(D)$ dove $D$ aperto, allora $$\frac{\partial }{\partial x_i}\frac{\partial f}{\partial x_j}(x,y) = \frac{\partial }{\partial x_j}\frac{\partial f}{\partial x_i}(x,y)\quad \forall(x,y)\in D;\quad \forall i,j = 1,...,N$$</p>
+                <p>
+                    <h3>Dimostrazione:</h3>
+                    Applichiamo ripetutamente il teorema del valor medio all'incremendo del primo ordine:
+                    
+                    <ol>
+                        <li>
+                            $$\Delta^2f \equiv f(x,y)-f(x_0,y)-f(x,y_0)+f(x_0,y_0)\Ra \underbrace{[f(x,y)-f(x_0,y)]}_{h(y)}- \underbrace{[f(x,y_0)-f(x_0,y_0)]}_{h(y_0)}=$$ $$\left[\frac{\partial f}{\partial y}(x,n_1)-\frac{\partial f}{\partial y}(x_0,n_1)\right](y-y_0) = \frac{\partial }{\partial x}\frac{\partial f}{\partial y}(\xi_1,n_1)(x_0-y_0)(y-y_0)$$
+                        </li>
+                        <li>
+                            $$\Delta^2 f = \underbrace{\left[f(x,y)-f(x,y_0)\right]}_{h(x)}-\underbrace{\left[f(x_0,y)-f(x_0,y_0)\right]}_{h(x_0)}= \left[\frac{\partial f}{\partial x}(xi_2,y)-\frac{\partial f}{\partial x}(\xi_2,y_0)\right]\cdot (x-x_0)= \frac{\partial }{\partial y}\frac{\partial f}{\partial x}(\xi_2,n_2)(y-y_0)(x-x_0)$$
+                        </li>
+                    </ol>
+                    Otteniamo quindi dalla prima e dalla seconda: $$\frac{\partial }{\partial x} \frac{\partial f}{\partial y}(\xi_1,n_1)= \frac{\partial }{\partial y}\frac{\partial f}{\partial x}(\xi_2,n_2)\Ra \lim_{p\to p_0} \frac{\partial }{\partial x} \frac{\partial f}{\partial y}(x_0,y_0) = \frac{\partial }{\partial y}\frac{\partial f}{\partial x}(x_0,y_0)$$
+                    quindi $\square$
+                    
+                </p>
+            </div>
             </p>
 
             <h3>Titoletto 3</h3>
