@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Teoremi Da Sapere</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="minimal-wrapper">
+
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+    <a href="CalcoloNumerico2.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Teoremi Da Sapere - Calcolo 2</h1>
+    </header>
+
+    <article>
+        <div class="theorem">
+                <div class="theorem-title">Teorema 1</div>
+                <p>
+                    <b>Condizione necessaria e sufficiente per la convergenza:</b> il metodo iterativo definito dalla matrice $B$ converge per ogni $x^{(0)}$ se e solo se $\rho(B)\lt 1$ dove $\rho$ è il raggio spettrale della matrice.
+                </p>
+                
+                <div class="lemma">
+                    <div class="lemma-title">Definizione Raggio Spettrale</div>
+                    <p>
+                        Raggio Spettrale di $M$ è la massima lunghezza, in modulo, degli autovalori di $M$. 
+                        $$\rho(M) = \max(|\lambda_i|)\quad \forall i$$
+                    </p>
+                </div>
+            </div>
+
+            <div class="theorem">
+                <div class="theorem-title">Teorema 2</div>
+                <p>
+                    Sia $M\in \CC^{n\times n}$, $\rho(M)$ il suo raggio spettrale, allora 
+                    $$\lim_{k\to \infty}M^k=0\sse\rho(M)\lt 1$$
+                    L'iterazione di Punto Fisso con matrice $B$ è convergente se esiste una norma di matrice tale che $||B||\lt 1$
+                </p>
+            </div>
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+     <script src="../theme.js"></script>
+</body>
+</html>

@@ -122,6 +122,13 @@
                 </p>
             </div>
 
+            <div class="theorem">
+                <div class="theorem-title">Teorema 3</div>
+                <p>
+                    Il metodo di Jacobi converge per $Ax=b$ se $A$ è una matrice a diagonale dominante per righe in senso stretto, ovvero $$\max_{1\leq i \leq n}\sum_{j=1}^n|a_{ij}|\lt 1\sse\sum^n_{j=1\atop{j\neq i}}|a_{ij}|\lt |a_{ii}|$$ 
+                </p>
+            </div>
+
             <h3>1.4 Metodo di Jacobi</h3>
 
             <p>
@@ -155,12 +162,87 @@
                     Convergenza del Metodo di Gauss-Seidel
                 </h3>
                 <div class="theorem">
-                <div class="theorem-title">Teorema della convergenza di Gauss-Seidel</div>
+                <div class="theorem-title">Teorema 4</div>
                 <p>
-                    Affinchè converga $GS$ $A\in \R^{n\times n}$ 
+                    Il metodo di Gauss-Seidel, come quello di Jacobi, converge se la matrice di iterazione è a diagonale dominante per righe in senso stretto.
                 </p>
-                </div>
+            </div>
             </p>
+
+            <h3>
+                Metodo di Sor
+            </h3>
+            <p>
+                Ha un parametro di rilassamento $$x_i^{(k+1)}= (1-\omega)x_i^{(k)}+\frac{\omega}{a_{ii}}(b_i-\sum_{j=1}^{i-1}a_{ij}x_k^{(k+1)}-\sum_{j=i+1}^{n}a_{ij}x_j^{(k)})$$In forma matriciale $$x^{(k+1)}=\underbrace{(\omega L+D)\inv [(1-\omega)D-\omega L]}_{\text{matrice di iterazione }B\omega}x^{(k)}+\omega(\omega L + D)\inv b$$ 
+                Il parametro di rilassamento $\omega$ se è $\omega \lt 1$ si dice di sottorilassamento mentre $\omega \gt 1$ è detto sovrarilassamento. Più efficente modo per far convergere è scegliere $\omega$ in modo che minimizza il raggio di convergenza di della matrice di iterazione. $ 0\leq\omega\leq 2$.
+            </p>
+
+            <h3>
+                Metodo Del Gradiente
+            </h3>
+            <p>
+                $\bar{x}\in \R^n$ è soluzione d $Ax=b\sse \bar{x}= \min(f(x)) = \frac{1}{2}x^TAx-x^Tb$ $$\begin{cases}\nabla f(\bar{x}) = 0 \sse A\bar{x}-b=0\\ H(\bar{x}) \gt 0 \end{cases}$$
+            </p>
+            <h4>Problema di Potenze</h4>
+            <p>
+                $x^{(x)},p^{(x)}$ fissati, vogliamo minimizzare $f(x(\alpha)) = f(x^{(k)}+\alpha p^{(k)})$
+
+                <ol>
+                    <li>
+                        Per Minimizzare $f(x(\alpha))$ devo imporre che $$0 = \frac{df}{d\alpha} = \frac{\partial f}{\partial x} \cdot \frac{\partial x}{\partial \alpha} = (Ax-b)\cdot p^{(k)}$$Dove $Ax-b$ è l'errore. Facciamo delle manipolazioni algebriche: $${p^{(k)}}^T(Ax^{(k)}+A\alpha p^{(k)}-b)={p^{(k)}}^T(-r^{(k)}+\alpha A p^{(k)}) = 0$$
+                        $$0 = -{p^{(k)}}^T r^{(k)} + \alpha {p^{(k)}}^T A p^{(k)}\Ra \alpha = \frac{{p^{(k)}}^Tr^{(k)}}{{p^{(k)}}^T Ap^{(k)}}$$
+                        Quindi posso trovare il membro di $f(x(\alpha))\gt 0 $ calcolando $$x^{(k+1)}- x^{(k)}+ \frac{{p^{(k)}}^Tr^{(k)}}{p^{(k)}}$$operazione più costosa la facciamo solamente una volta per iterazione e risolviamo $v^{(k)}=Ap^{(k)}$
+                    </li>
+                    <li>
+                        Calcolando il residuol $$r^{(k+1)} = b-Ax^{(k+1)} = b-Ax^{(k)}-\alpha^{(k)}Ap^{(k)}= r^{(k)}-\alpha^{(k)} A p^{(k)} = r^{(k)} - \alpha^{(k)}v^{(k)}$$
+                    </li>
+                    <li>
+                        Step 3A: Ma qual è una buona direzione di ricerca per $p^{(k)}$? Supponiamo che la direzione di massima discesa è quella che ha segno contrario del gradiente $-\nabla f = r^{(k)}$. Al primo posto posso usare $p^{(k)}=r^{(0)}$
+                    </li>
+                    <li>
+                        Step 3B: Perciò se facessimo sempre questa scelta. Un trucco per accelerare la sua convergenza consiste nello sfruttare non solo l'inf data del gradiente, ma anche dell'uso di vettori coniugati. Infatti, supponiamo che conoscessimo $n$ vettori coniugati, si potrà scrivere la soluzione $x$ concreta. Allora partendo dalla direzione del residuo che è la migliore scelta che possiamo fare localmente, la modifichiamo per renderla coniugata, speriamo, rispetto a tutte le riezioni precedenti. Ottendo in tal modo $$p^{(k)}\begin{cases} r^{(0)} & k=0 \\ r^{(k)}+\beta_k p^{(k-1)} & \forall k\geq 1\end{cases}$$
+                        Dove $\beta_k$ deve essere scelto affinchè $${p^{(k)}}^T A p{(k+1)} = 0 \sse {p^{(k-1)}}^TA p^{(k)}=0$$
+                        Proprietà importante che richiameremo più avanti come <b>STELLA</b>. 
+                    </li>
+                </ol>
+                Troviamo $\beta_{k}$: Partiamo da imponendo ${p^{(k)}}^TAp^{(k)} = 0$: $$(r^{(k)}+\beta_{k}p^{(k+1)})^TAp^{(k-1)} = 0$$ $${r^{(k)}}^T A p^{(k-1)}+\beta_k{p^{(k-1)}}^TAp^{(k-1)}=0$$ $$\Ra \beta_k = -\frac{{r^{(k)}}^TAp^{(k-1)}}{{p^{(k-1)}}^T A p^{(k-1)}}\quad k\geq 1$$
+
+                <h3>Proprietà:</h3>
+                <ol>
+                    <li>
+                        Proprietà 1: ${r^{(k+1)}}^T p^{(k)} = 0$ $${r^{(k+1)}}^Tp^{(k)} = (r^{(k)}-\alpha^{(k)}Ap^{(k)})^Tp^{(k)} = {r^{(k)}}^Tp^{(k)}- \alpha^{(k)} {p^{(k)}}^T A^T p^{(k)}$$Siccome $A=A^T$ otteniamo: $${r^{(k)}}^T p^{(k)} - \frac{{p^{(k)}}^Tr^{(k)}}{{p^{(k)}}^T A p^{(k)}}{p^{(k)}}^T A p^{(k)} = 0$$
+                    </li>
+                    <li>
+                        Proprietà 2: sappiamo che $p^{(k)} = r^{(k)}+\beta_k p^{(k+1)}$ per $k\geq 1$ quindi:
+                        $${p^{(k)}}^T r^{(k)} = {r^{(k)}}^T r^{(k)} =(r^{(k)}+\beta_k p^{(k-1)})^T r^{(k)}- {r^{(k)}}^T r^{(k)} + \beta_k {p^{(k-1)}}^T r^{(k)} = {r^{(k)}}^Tr^{(k)}$$
+                    </li>
+                    <li>
+                        Proprietà 3: Dalla formula del residuo, si può dedurre che $$r^{(k+1)} = r^{(k)} - \alpha^k A p^{(k)}\Ra Ap^{(k)} = \frac{r^{(k)}-r^{(k+1)}}{\alpha^{(k)}}$$
+                    </li>
+                    <li>
+                        Proprietà 4: Dimostriamo che ${r^{(k+1)}}^T r^{(k)}=0$
+                        $${r^{(k+1)}}^Tr^{(k)} = (r^{(k)}-\alpha^{(k)}Ap^{(k)})^T r^{(k)} = {r^{(k)}}^Tr^{(k)} - \alpha^{(k)}{p^{(k)}}^T A r^{(k)}=$$ $$= {r^{(k)}}^T r^{(k)} - \alpha^{(k)}{p^{(k)}}^TA(p^{(k)}-\beta^{(k)}p^{(k-1)}) = {r^{(k)}}^T r^{(k)}-\alpha^{(k)}{p^{(k)}}^TAp^{(k)} + \alpha^{(k)}+\alpha^{(k)} \beta^{(k)}{p^{(k)}}^T Ap^{(k-1)} =$$ $$ = {r^{(k)}}^T r^{(k)} - \frac{{p^{(k)}}^Tr^{(k)}}{{p^{(k)}}^TAp^{(k)}}{p^{(k)}}^TAp^{(k)} $$ Per la proprietà $2$ $${r^{(k)}}^Tr^{(k)} - {r^{(k)}}^Tr^{(k)} = 0$$
+
+                        ( da qualche parte ho usato la proprietà stellina ma non so dove.)
+                    </li>
+                </ol>
+                Usando le varie proprietà, ora posso semplificare le formule per $\alpha$ e $\beta$:
+                <p>
+                    <b>Step 1</b> risultato: $$\alpha_k = \frac{{p^{(k)}}^Tr^{(k)}}{{p^{(k)}}^TAp^{(k)}}$$Usando l'uguaglianza $Ap^{(k)}= v^{(k)}$ e la proprietà $2$ otteniamo $$\frac{{r^{(k)}}^Tr^{(k)}}{{p^{(k)}}^Tv^{(k)}} = \frac{||r^{(k)}||_2^2}{{p^{(k)}}^Tv^{(k)}}$$
+                </p>
+                <p>
+                    <b>Step 3</b> risultato: $$\beta_k = -\frac{{r^{(k)}}^T A p^{(k-1)}}{{p^{(k+1)}}^TAp^{(k-1)}} = \frac{{r^{(k)}}^TAp^{(k-1)}}{{p^{(k+1)}}^TAp^{(k-1)}} = \frac{{r^{(k)}}^TAp^{(k-1)}}{1}\cdot \frac{1}{{p^{(k+1)}}^TAp^{(k-1)}}$$
+                    Dove per la proprietà 3 abbiamo che $$\frac{-{r^{(k)}}^T(r^{(k-1)}-r^{(k)})}{\alpha^{(k-1)}}\cdot \frac{\alpha^{(k-1)}}{{p^{(k-1)}}^T(r^{(k-1)}-r^{(k)})}= -\frac{{r^{(k)}}^Tr^{(k-1)}-{r^{(k)}}^Tr^{(k)}}{{p^{(k-1)}}^Tr^{(k-1)}-p^{(k-1)}r^{(k)}}$$ che per la proprietà $4$ e $1$ otteniamo che $$= \frac{||r^{(k)}||_2^2}{||r^{}(k-1)||_2^2}=\beta_k = {r^{(k-1)}}^Tr^{(k-1)}$$ per proprietà 2
+                </p>
+
+                <p>
+                    Mentre lo step $4$ vogliamo ora sapere in quante iterazioni converge il metodo. Se le direzioni $p^{(k)}$ scelte fossero tutte coniugate tra loro, allora sapremmo che, in aritmetica esatta, il metodo converge esattamente in $n$ iterazioni, che è anche il numero massimo di iterazioni che ha senso fare, poi non si possono più trovare iterazioni coniugate perchè ad ogni passo il metodo confina il residuo a stare in uno spazio di dimensioni sempre più piccole finchè dopo $n$ passi $r^{(k)}$ starà in uno spazio nullo. Basterebbero $n$ iterazioni perchè quando si hanno $n$ iterazioni coniugate si può sempre scrivere la soluzione del sistema. Per questa ragione della finitezza del numero di iterazioni il metodo del gradiente coniugato si potrebbe considerare un metodo diretto. <b>PER MATRICI SPARSE, QUESTO È IL MIGLIOR METODO.</b>
+                </p>
+                
+
+            </p>
+
+            
         </section>
     </article>
 

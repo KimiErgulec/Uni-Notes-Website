@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Capitolo 15 - Analisi 2</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="minimal-wrapper">
+
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+    <a href="Analisi2.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Capitolo 15</h1>
+    </header>
+
+    <article>
+        <section>
+
+            <div class = "theorem">
+                <div class = "theorem-title">
+                    Teorema dell'Hessina
+                </div>
+                    <p>
+                        <h2>Studio dei punti critici mediante la Matrice Hessiana</h2>
+                        <p>Sia $f\in C^2(D)$ dove $D$ aperto, e $p_0\in D$ un punto critico di $f$ (ovvero $\nabla f(p_0)=0$). Lo sviluppo di Taylor al secondo ordine di $f$ in $p_0$ si riduce a $$f(p) = f(p+0) + \frac{1}{2}(p-p_0)^T D^2f(p_0)(p-p_0)+ o(|p-p_0|^2)$$
+                        </p>
+
+                        <p>
+                            Ricordo che $D^2f(p_0)$ è la matrice Hessiana e per il teorema di Cauchy è simmetrica, perciò diagonalizzabile ed i suoi autovalori sono reali.
+                        </p>
+                        <p>
+                            Esiste quindi $R\in O(N)$ (sparsa) tale che $$R^T = R\inv\quad t.c \quad R^T\cdot D^2 f(p_0)R = \begin{bmatrix}\lambda_1 & & 0 \\ & \ddots & \\ 0 & & \lambda_N\end{bmatrix}=diag(\lambda_1,...,\lambda_N)$$ con $\lambda_i\in \R \quad \forall 1,...,N$. Se $p-p_0 = R\cdot w$ con $w=\begin{bmatrix}w_1\\ \vdots \\ w_N\end{bmatrix}$ allora la forma quadratica: $$(p-p_0)^T D^2 f(p_0)(p-p_0) = w^TR^TD^2f(p_0)Rw = w^T \begin{bmatrix}\lambda_1 & & 0 \\ & \ddots & \\ 0 & & \lambda_N\end{bmatrix} w = \lambda_1 w_1^2 +...+ \lambda_n w^2_n$$si ha allora che 
+                            
+                            <ol>
+                                <li>
+                                    Se $\lambda_i>0$ per ogni $i$ (ovvero che il $\bar{\lambda} = \min\{\lambda_1,...,\lambda_N\}>0$) abbiamo $$f(p)\geq f(p_0)+\frac{1}{2}\bar{\lambda}\sum_{i=1}^{N}w_i^2 + o(|w|^2)\geq f(p_0)+\frac{1}{4}\bar{\lambda}|w|^2>f(p_0)$$ per una certa $|w|\lt\delta$ ovvero che $p_0$ è un punto di minimo stretto locale di $f$
+
+                                </li>
+                                <li>
+                                    Se $\lambda_i\lt0$ per ogni $i$ (ovvero che il $\tilde{\lambda} = \max\{\lambda_1,...,\lambda_N\}\lt 0$) abbiamo $$f(p)\leq f(p_0)+\frac{1}{2}\bar{\lambda}\sum_{i=1}^{N}w_i^2 + o(|w|^2)\leq f(p_0)+\frac{1}{4}\bar{\lambda}|w|^2\lt f(p_0)$$ per una certa $|w|\lt\delta$ ovvero che $p_0$ è un punto di massimo stretto locale di $f$
+                                </li>
+                                <li>
+                                    Se invece esistono $i,j$ per $i\neq j$ tali che $\lambda_i \gt0$ e $\lambda_j\lt0$, $p_0$ è un punto di sella
+                                </li>
+                                <li>
+                                    Se almeno un autovalore è nullo allora non è possibile verificare di che natura sia il punto tramite questo metodo
+                                </li>
+                            </ol>
+                        </p>
+                    </p>
+                </div>
+                 
+        </section>
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+     <script src="../theme.js"></script>
+</body>
+</html>

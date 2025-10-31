@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Capitolo 14 - Analisi 2</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="minimal-wrapper">
+
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+    <a href="Analisi2.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Capitolo 14</h1>
+    </header>
+
+    <article>
+        <section>
+            <h2>Sviluppo di Taylor al secondo ordine</h2>
+            <p>
+                Sia $f\in C^2(D)$ dove $p_0\in D\subset \R^N$, sia $v\in \R^N, |v|=1$ dove $v=(v_1,...,v_N)$. Sia $p\equiv p(t) = p_0+tv$, posto $g(t) = f(p(t))$ dove $t\in [-\delta,\delta]$ si ha che $g\in C^2([-\delta,\delta];\R)$.
+            </p>
+            <p>
+                Calcoliamo lo sviluppo di Taylor di $g$ per dedurre quello di $f$ in $p_0$ (per semplicità consideriamo $N=2$): $$g(t)=f(x_0+tv_1,y_0+tv_2)\Ra g'(t) = \frac{\partial f}{\partial x}(p(t))\cdot \frac{dx}{dt}(t) + \frac{\partial f}{\partial y}(p(t))\cdot \frac{dy}{dt}(t)= \frac{\partial f}{\partial x}(p(t))\cdot v_1 + \frac{\partial f}{\partial y}\cdot v_2\Ra$$
+                $$\Ra g'(0) = \frac{\partial f}{\partial x} (p_0)v_1 + \frac{\partial f}{\partial y}(p_0)v_2=[\nabla f (p_0)]^T\cdot \begin{bmatrix}v_1\\ v_2\end{bmatrix}$$
+                $$g''(t) = \frac{\partial }{\partial x} \left(\frac{\partial f}{\partial x}(x(t),y(t))v_1\right)\cdot \frac{dx}{dt}(t) + \frac{\partial }{\partial y}\left(\frac{\partial f}{\partial x } (x(t),y(t))v_1\right)\cdot \frac{dy}{dt}(t) + \frac{\partial }{\partial x}\left(\frac{\partial f}{\partial y}(x(t),y(t))\cdot v_2\right)\cdot \frac{dx}{dt}(t) + \frac{\partial }{\partial y}\left( \frac{\partial f}{\partial y}(x(t),y(t))v_2\right)\frac{dy}{dt}(t)=$$
+                $$=\frac{\partial^2 f}{\partial x}(p(t))v_1v_2 + \frac{\partial^2 f}{\partial y \partial x}(p(t))v_1v_2 + \frac{\partial^2 f}{\partial x\partial y}(p(t))v_2v_1 + \frac{\partial^2 f}{\partial y^2}(p(t))v_2v_1 \Ra$$
+                $$g''(0) = \frac{\partial^2 f}{\partial x}(p_0)v_1^2 + 2\frac{\partial^2 f}{\partial x\partial y}(p_0)v_1v_2 + \frac{\partial^2 f}{\partial y^2}(p_0)v_2^2=$$
+                $$= \begin{bmatrix}v_1 & v_2\end{bmatrix}\begin{bmatrix}&&&\\& D^2 f (p_0)&\\&&&\end{bmatrix}\begin{bmatrix}v_1\\v_2\end{bmatrix}$$
+                Lo sviluppo di Taylor al secondo ordine di $g$ centrato in $t=0$ è $$g(t) = g(0) + t\cdot g'(0) + \frac{t^2}{2}\cdot g''(0) + o(|t^2|)$$ $$f(p) = f(p_0) + t[\nabla f(p_0)]\begin{bmatrix}v_1\\v_2\end{bmatrix} + \frac{t^2}{2}\begin{bmatrix}v_1 & v_2\end{bmatrix}\begin{bmatrix}&&&\\ & D^2 f(p_0)&\\&&&\end{bmatrix} \begin{bmatrix}v_1\\v_2\end{bmatrix} = o(|t^2|)$$
+                Ora per $p=p_0+tv\sse tv=p-p_0$ e $|t|^2 = |p-p_0|^2$. Possiamo dunque scrivere in completo: $$f(p) = f(p_0) + \lt \nabla f(p_0),p-p_0\gt + \frac{1}{2}\lt p-p_0,D^2 f(p_0)\cdot (p-p_0)\gt + o(|p-p_0|^2)$$
+            </p>
+
+            <p>
+                Attraverso lo sviluppo di Taylor al secondo ordine possiamo studiare la natura dei punti critici
+            </p>
+        </section>
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+     <script src="../theme.js"></script>
+</body>
+</html>

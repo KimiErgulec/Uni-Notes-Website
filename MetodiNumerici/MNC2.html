@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Capitolo 2 - Metodi Numerici</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="minimal-wrapper">
+
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+    <a href="MetodiNumerici.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Capitolo 2</h1>
+    </header>
+
+    <article>
+        <section>
+            <h2>Theta Metodo</h2>
+            <p>
+                $$y_{n+1}=y_n+k(1-\theta)f(t_n,y(t_n))+k\theta f(t_{n+1},y(t_{n+1}))\quad 0\lt\theta\lt1$$
+            </p>
+
+            <h3>Ordine del $\theta$ metodo</h3>
+            <p>
+                $$y(t_1)-y(t_0)-k(1-\theta) f(t_0,y(t_0)) - k\theta f(t_1,y(t_1))$$
+                Nuovamente usiamo Taylor per dimostrarla centrando tutto in $t_0$: $$\underbrace{y(t_0)+y'(t_0)k+y''(t_0)\frac{k^2}{2}+y'''(t_0)\frac{k^3}{6}}_{y(t_1)}-y(t_0)-k(1-\theta)\underbrace{y'(t_0)}_{f((t_0),y(t_0))} - k\theta \underbrace{\left[y'(t_0)+y''(t_0)k+y'''\frac{k^2}{2}\right]}_{f(t_1,y(t_1))}+O(k^4) =$$
+                $$=y''(t_0)k^2\left(\frac{1}{2}-\theta\right)+y'''(t_0)k^3\left(\frac{1}{6}-\frac{\theta}{2}\right)+O(k^4)$$
+                Se $\theta \neq \frac{1}{2}$ l'ordine è $1$ siccome $y''(t_0)$ soopravvive $k^2$ mentre se $\theta =\frac{1}{2}$ ordine è $2$ siccome sopravvive solo $k^3$.
+            </p>
+            
+                <p>
+                    $$\Psi(t,y) = (1-\theta)f(t,y) + \theta f(t+k,y+k\Psi(t,y))$$
+                    Definita implicitamente, è risolubile solo se è una contrazione:
+                </p>
+                <p>
+                    Fissato $y$ otteniamo $$g(x) = (1-\theta) f(t,y) + \theta f(t+k,y+kx)\Ra \exists x =g(x)$$è contrazione quando lo Jacobiamo è sufficientemente piccolo rispetto a $x$. Lo jacobiano della prima parte è zero siccome non dipende da $x$, la seconda invece è $J(\theta f(t+k,y+kx))-J(y+kx)\Ra k\cdot [...]\lt 1$ per un $k$ sufficcientemente piccolo, perciò è una contrazione. Osserviamo che $$\underbrace{x+k\Phi(t_n,x)}=x+k[(1-\theta)f(t_n,x)+\theta f(t_n+k,\underbrace{x+k\Phi(t_n,x)})]$$da cui $x+k\Phi(t_n,x)$ è l'applica`ione del metodo a partire da $x$. In particolare $y_n + k\Phi(t_n,y_n)=y_{n+1}$ e $y(t_n)+k\Phi(t_n,y(t_n))=y^*_{n+1}$
+                </p>
+                <p>
+                    $$||\Psi(t,x)-\Psi(t,y)|| = ||(1-\theta)f(t,x) + \theta f (t+k,x+k\Psi(t,x))-(1-\theta)f(t,y)-\theta f(t,k,y+k\Psi(t,y))||$$Usando la disuguaglianza triangolare e la lipshitzianità di $f$ otteniamo $$\leq ||(1-\theta)\lambda ||x-y||+\theta \lambda ||x+k\Psi (t,x) - y- k\Psi(t,y)||\leq$$
+                    $$||\Psi(t,x)-\Psi(t,y)||\leq (1-\theta) \lambda ||x-y||+\theta \lambda ||x-y|| + \theta k \lambda ||\Psi(t,x)-\Psi(t,y)||\Ra$$
+                    $$\Ra ||\Psi(t,x)-\Psi(t,y)||\leq \frac{1}{1-\theta \lambda k}\cdot \lambda ||x-y||$$Dove per un $k$ molto piccolo $\frac{1}{1-\lambda \theta k}$ tende ad $1$ perciò: $$||\Psi(t,x)-Psi(t,y)|| \leq \mathcal{L} ||x-y||$$Ovvero anche $\Psi(t,x)$ è Lipshitziana. Perciò il metodo è stabile siccome $$||x+k\Psi(t_n,x)-y-k\Psi(t_n,y)||\leq (1+k\mathcal{L})||x-y||$$
+                </p>
+
+            <div class = "theorem">
+                <div class = "theorem-title">
+                    Teorema di Convergenza del $\theta$-Metodo
+                </div>
+                <p>
+                    $$||e_{n+1}||=||y_{n+1}-y(t_{n+1})||=||y_{n+1}-y^*_{n+1}+y_{n+1}^*-y(t_{n+1})||\leq ||y_{n+1}-y^*_{n+1}||+||y_{n+1}^*-y(t_{n+1})||\leq$$
+                    $$(1+k\mathcal{L})||e_n||+\underbrace{|\frac{1}{2}-\theta|k^2c+|\frac{1}{6}-\frac{\theta}{2}|k^3 d}_{\text{errore locale}}$$
+                    Converge esattamente come Eulero. Il metodo per $\theta = 1$ si chiama Eulero Implicito, per $\theta = \frac{1}{3}$ il metodo è di ordine uno, ma il termine contenente la derivata terza della soluzione è annullato.
+                </p>
+                <p>
+                    Se $e_1 = ck_1$ e $e_2 = ck_2$ abbiamo che $e_1 = \frac{ct^*}{m_1}$ e $e_2 = \frac{ct^*}{m_2}$ abbiamo $$\log(e_1)-\log(e_2) = \log(\frac{ct^*}{m_1})-\log(\frac{ct^*}{m_2}) = -\log(\frac{m_1}{t^*})+\log(\frac{m_2}{t^*})$$Ovvero che la differenza dei logaritmi degli errori = -differenza di log dei passi
+                </p>
+            </div>
+
+            <h3>
+                Risoluzione di un metodo implicito
+            </h3>
+            <p>
+                Nel caso implicito $\theta \neq 0$, ado ogni passo $n$ si deve risolvere un sistema di equazioni in generale non lineari $$F_{n}(x) = x-k\theta f(t_{n+1},x) - y_n - k(1-\theta) f(t_n,y_n)$$
+                Si potrebbe usare il metodo del punto fisso ma c'è una restrizione eccessiva su $k$ perciò si consiglia Newton: $$J_{F_n}(x) = I-k\theta \left(\frac{\partial_i(t_{n+1},x)}{\partial_{x_i}}\right)_{ij}$$
+                Quindi: $$y_{n+1}^{(r+1)} = y_{n+1}^{(r)} - J_{F_n}(y_{n+1}^{(r)})\inv F_n(y_{n+1}^{(r)})$$con $y_{n+1}^{0} = y_n$. Da notare che se congelo $y_{n+1}^{(0)}$ ho sempre la stessa matrice che posso risolvere con $LU$. Se i sistemi sono lineari meglio non usare Newton.
+            </p>
+
+            <p>
+                Se $y(t)=Ay(t)+b$ dove $A$ ha termini fissi. Allora applichiamo il $\theta$-metodo $$y_{n+1}=y_n+k(1+\theta)(Ay_n+b)+k\theta (Ay_{n+1}+b)=(I-k\thata A)y_{n+1}=(I+k(1-\theta)A)y_n+kb$$
+                Non serve Newton siccome devo risolvere $(I-k\theta A)$. Se $k$ stesso, $\theta$ stesso allora la matrice $I-k\theta A$ rimane identica e posso fattorizzarla con $LU$, quindi il costo computazionale cubico è fatto solo una volta.
+            </p>
+
+
+            <h3>
+                Newton Inesatto
+            </h3>
+            <p>
+                $y'(t)=f(t,y(t))$ i passi temporali variabili sono per iminuire i costi e rendere il tutto più efficiente. Dipendendo da quante iterazioni di Newton, possiamo regolare $k$. Possiamo dargli il range in maniera arbitraria.
+            </p>
+            <p>
+                Aventi $y'(t) = f(t,y(t))$: $$y(t_{n+s})=y(t_{n+s-1})+\int_{t_{n+s-1}}^{t_{n+s}}f(\tau,y(\tau))d\tau$$Dove possiamo approssimare l'integrale con un polinomio che lo calcoli usando Lagrange per i coefficienti.
+                $$p(\tau) = \sum_{j=0}^{s-1}L_j(\tau)f(t_{n+j},y_{n+j})\quad \quad L_j(t_{n+i})=\delta_{ij}$$
+                è un metodo che non esplicita i suoi primi valori. Possiamo assumere che abbia sufficienti punti dietro ($s$).
+                $$\int_{t_{n+s-1}}^{t_{n+s}}p(\tau)d\tau = \sum_{j=0}^{s-1}\left(\int_{t_{n+s-1}}^{t_{n+s}}L_j(\tau)d\tau\right) f(t_{n+j}, y_{n+j})$$ dove $p(\tau) = a_0 + a_1\tau + a_2\tau^2 +... + a_n\tau^n$ che possono essere vettori $p:\R\to\R^n$. Otteniamo quindi $$k\sum_{j=0}^{s-1} b_j f(t_{n+j},y_{n+j})$$
+            </p>
+                
+            
+                
+
+            <h3>Titoletto 3</h3>
+            <ol>
+                <li>
+                    elemento
+                </li>
+
+                <li>
+                    elemento
+                </li>
+
+                <li>
+                    elemento
+
+                </li>
+            </ol>
+
+            <div class="lemma">
+                <div class="lemma-title">Lemma Esempio</div>
+                <p>
+                    Esempio
+                </p>
+            </div>
+
+            <div class = "proposition">
+                <div class = "proposition-title">
+                    Proposizione Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+            <div class = "corollary">
+                <div class = "corollary-title">
+                    Corollario Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+            <div class = "theorem">
+                <div class = "theorem-title">
+                    Teorema Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+            <div class = "definition">
+                <div class = "definition-title">
+                    Definizione Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+        </section>
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+     <script src="../theme.js"></script>
+</body>
+</html>

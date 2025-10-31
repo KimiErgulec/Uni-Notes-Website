@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Dashboard - Kimi Ergulec</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ============================================
+           DASHBOARD SPECIFIC STYLES
+           ============================================ */
+        
+        /* Dashboard Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-card {
+            background: var(--white);
+            border: 2px solid var(--border-light);
+            border-left: 5px solid var(--primary);
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .dashboard-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .dashboard-card h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        /* Today Info Box */
+        .today-info {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            text-align: center;
+            padding: 32px;
+        }
+
+        .today-info h2 {
+            color: white;
+            margin: 0 0 12px 0;
+            font-size: 1.8rem;
+        }
+
+        .today-info p {
+            margin: 8px 0;
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        /* Exam Cards */
+        .exam-card {
+            background: var(--code-bg);
+            border-left: 4px solid var(--primary);
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .exam-name {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1.05rem;
+        }
+
+        .exam-date {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* Session Sections */
+        .session-section {
+            margin-bottom: 32px;
+        }
+
+        .session-title {
+            color: var(--primary);
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--secondary-light);
+        }
+
+        .exam-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .exam-list li {
+            background: var(--white);
+            border-left: 4px solid var(--secondary);
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        /* Study Plan Table */
+        .study-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+
+        .study-table th {
+            background: var(--primary);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .study-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 0.9rem;
+        }
+
+        .study-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .study-table tr:hover {
+            background: var(--code-bg);
+        }
+
+        /* Priority Tags */
+        .priority-high {
+            display: inline-block;
+            background: #e76f51;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .priority-medium {
+            display: inline-block;
+            background: #f4a261;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .priority-low {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Notes Section */
+        .notes-box {
+            background: var(--code-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+            margin-top: 16px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .study-table {
+                font-size: 0.85rem;
+            }
+
+            .study-table th,
+            .study-table td {
+                padding: 8px;
+            }
+
+            .exam-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Navigation Bar -->
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+
+    <div class="container">
+        <!-- Back to Home Link -->
+        <a href="index.html" class="back-home">← Torna alla Home</a>
+
+        <!-- Hero Header -->
+        <header>
+            <h1>📊 Dashboard Accademica</h1>
+            <p class="subtitle">Panoramica esami e pianificazione studio</p>
+        </header>
+
+        <article>
+            <!-- Today's Date Info -->
+            <div class="dashboard-card today-info">
+                <h2>📅 Oggi: Sabato, 25 Ottobre 2025</h2>
+                <p><strong>101 giorni</strong> alla prima sessione (Febbraio 2026)</p>
+            </div>
+
+            <!-- Exams Overview -->
+            <h2 class="section-title">🎓 Calendario Esami</h2>
+            
+            <div class="dashboard-grid">
+                <!-- Febbraio Session -->
+                <div class="dashboard-card">
+                    <h3>📚 Sessione Febbraio 2026</h3>
+                    <div class="session-section">
+                        <div class="exam-card">
+                            <span class="exam-name">Calcolo 2</span>
+                            <span class="exam-date">3 Feb</span>
+                        </div>
+                        <div class="exam-card">
+                            <span class="exam-name">Analisi 2</span>
+                            <span class="exam-date">10 Feb</span>
+                        </div>
+                        <div class="exam-card">
+                            <span class="exam-name">Metodi Numerici</span>
+                            <span class="exam-date">15 Feb</span>
+                        </div>
+                        <div class="exam-card">
+                            <span class="exam-name">Geometria</span>
+                            <span class="exam-date">20 Feb</span>
+                        </div>
+                        <div class="exam-card">
+                            <span class="exam-name">Sistemi Dinamici</span>
+                            <span class="exam-date">25 Feb</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aprile Session -->
+                <div class="dashboard-card">
+                    <h3>🌸 Sessione Aprile 2026</h3>
+                    <div class="session-section">
+                        <div class="exam-card">
+                            <span class="exam-name">Recuperi Febbraio</span>
+                            <span class="exam-date">TBD</span>
+                        </div>
+                    </div>
+                    <div class="notes-box">
+                        <strong>Nota:</strong> Date da confermare. Questa sessione serve principalmente per recuperare eventuali esami non superati a febbraio.
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <!-- Luglio Session -->
+                <div class="dashboard-card">
+                    <h3>☀️ Sessione Luglio 2026</h3>
+                    <div class="session-section">
+                        <div class="exam-card">
+                            <span class="exam-name">Probabilità e Statistica</span>
+                            <span class="exam-date">TBD</span>
+                        </div>
+                        <div class="exam-card">
+                            <span class="exam-name">Analisi 3</span>
+                            <span class="exam-date">TBD</span>
+                        </div>
+                        <div class="exam-card">
+                            <span class="exam-name">Fisica 2</span>
+                            <span class="exam-date">TBD</span>
+                        </div>
+                        <div class="exam-card">
+                            <span class="exam-name">MicroEconomia</span>
+                            <span class="exam-date">TBD</span>
+                        </div>
+                        <div class="exam-card">
+                            <span class="exam-name">MacroEconomia</span>
+                            <span class="exam-date">TBD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settembre Session -->
+                <div class="dashboard-card">
+                    <h3>🍂 Sessione Settembre 2026</h3>
+                    <div class="session-section">
+                        <div class="exam-card">
+                            <span class="exam-name">Recuperi precedenti</span>
+                            <span class="exam-date">TBD</span>
+                        </div>
+                        <div class="exam-card">
+                            <span class="exam-name">Matematica Finanziaria</span>
+                            <span class="exam-date">TBD</span>
+                        </div>
+                        <div class="exam-card">
+                            <span class="exam-name">Econometria</span>
+                            <span class="exam-date">TBD</span>
+                        </div>
+                        <div class="exam-card">
+                            <span class="exam-name">Sistemi Stocastici</span>
+                            <span class="exam-date">TBD</span>
+                        </div>
+                        <div class="exam-card">
+                            <span class="exam-name">Sistemi Operativi</span>
+                            <span class="exam-date">TBD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Study Plan -->
+            <h2 class="section-title">📖 Piano di Studio</h2>
+            
+            <div class="dashboard-card">
+                <h3>🎯 Focus Ottobre-Gennaio (Preparazione Febbraio)</h3>
+                <table class="study-table">
+                    <thead>
+                        <tr>
+                            <th>Materia</th>
+                            <th>Priorità</th>
+                            <th>Obiettivo Settimanale</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Calcolo 2</strong></td>
+                            <td><span class="priority-high">Alta</span></td>
+                            <td>2 capitoli teoria + 15 esercizi</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Analisi 2</strong></td>
+                            <td><span class="priority-high">Alta</span></td>
+                            <td>1 capitolo teoria + 10 esercizi</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Metodi Numerici</strong></td>
+                            <td><span class="priority-medium">Media</span></td>
+                            <td>1 algoritmo MATLAB + test</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Geometria</strong></td>
+                            <td><span class="priority-medium">Media</span></td>
+                            <td>Ripasso teoremi + 8 esercizi</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sistemi Dinamici</strong></td>
+                            <td><span class="priority-low">Bassa</span></td>
+                            <td>Leggere appunti + esempi base</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="notes-box">
+                    <strong>💡 Strategia:</strong> Concentrarsi su Calcolo 2 e Analisi 2 nelle prime settimane. Metodi Numerici richiede pratica MATLAB costante. Geometria e Sistemi Dinamici verranno intensificati da dicembre.
+                </div>
+            </div>
+
+            <!-- Current Deadlines -->
+            <h2 class="section-title">⏰ Deadline Immediate</h2>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>📝 Questa Settimana (21-27 Ott)</h3>
+                    <ul class="exam-list">
+                        <li><strong>30 Ott:</strong> Consegna Serie Esercizi 4 - Calcolo 2</li>
+                        <li><strong>1 Nov:</strong> Progetto MATLAB Metodi Iterativi</li>
+                    </ul>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3>📅 Prossime Due Settimane</h3>
+                    <ul class="exam-list">
+                        <li><strong>5 Nov:</strong> Studiare Diagonalizzazione (Geometria)</li>
+                        <li><strong>8 Nov:</strong> Esercitazione Sistemi Dinamici</li>
+                        <li><strong>20 Nov:</strong> Tesina Analisi 2 (10 pagine)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Study Resources -->
+            <h2 class="section-title">📚 Risorse e Materiale</h2>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>📖 Appunti Disponibili</h3>
+                    <ul class="exam-list">
+                        <li><a href="CalcoloNumerico2/CalcoloNumerico2.html" style="color: var(--primary); text-decoration: none;">Calcolo Numerico 2</a></li>
+                        <li><a href="MetodiNumerici/MetodiNumerici.html" style="color: var(--primary); text-decoration: none;">Metodi Numerici</a></li>
+                        <li><a href="Analisi2/Analisi2.html" style="color: var(--primary); text-decoration: none;">Analisi 2</a></li>
+                        <li><a href="AlgebraLineare/index.html" style="color: var(--primary); text-decoration: none;">Algebra Lineare</a></li>
+                        <li><a href="Probabilita/index.html" style="color: var(--primary); text-decoration: none;">Probabilità</a></li>
+                        <li><a href="Fisica/index.html" style="color: var(--primary); text-decoration: none;">Fisica</a></li>
+                    </ul>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3>📌 Info Utili</h3>
+                    <div class="notes-box">
+                        <p style="margin: 8px 0;"><strong>Ricevimento:</strong> Martedì 14:00-16:00</p>
+                        <p style="margin: 8px 0;"><strong>Biblioteca:</strong> Lun-Ven 8:00-20:00</p>
+                        <p style="margin: 8px 0;"><strong>Lab Informatica:</strong> Prenotazione online</p>
+                        <p style="margin: 8px 0;"><strong>Email Uni:</strong> kimi.ergulec@studenti.univr.it</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes Section -->
+            <h2 class="section-title">📝 Note e Promemoria</h2>
+            
+            <div class="dashboard-card">
+                <h3>💭 Riflessioni</h3>
+                <div class="notes-box">
+                    <p><strong>Focus corrente:</strong> Serie e Successioni sono fondamentali per Calcolo 2. Dedicare almeno 2 ore al giorno a questo argomento.</p>
+                    
+                    <p style="margin-top: 16px;"><strong>Gruppo Studio:</strong> Organizzare sessione con compagni per Metodi Numerici - utile per confrontare implementazioni MATLAB.</p>
+                    
+                    <p style="margin-top: 16px;"><strong>Strategie:</strong> Creare flashcard per formule di Analisi 2. Ripassare definizioni di Geometria prima di ogni esercitazione.</p>
+                </div>
+
+                <h3 style="margin-top: 24px;">⚠️ Da Non Dimenticare</h3>
+                <ul class="exam-list">
+                    <li>Iscriversi agli esami entro le scadenze (controllare portale)</li>
+                    <li>Preparare domande per il prossimo ricevimento</li>
+                    <li>Backup regolare dei file MATLAB</li>
+                    <li>Rivedere appunti dopo ogni lezione (entro 24 ore)</li>
+                </ul>
+            </div>
+
+        </article>
+
+        <!-- Footer -->
+        <footer>
+            <p>Dashboard aggiornata: Ottobre 2025</p>
+            <p>Anno Accademico 2024-2025 | Università di Verona</p>
+        </footer>
+    </div>
+
+    <!-- Theme Toggle Script -->
+    <script src="theme.js"></script>
+</body>
+</html>

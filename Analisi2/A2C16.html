@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Template</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="minimal-wrapper">
+
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+    <a href="Analisi2.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Massimi e minimi Assoluti in domini chiusi e limitati</h1>
+    </header>
+
+    <article>
+        <section>
+            Sia $f:D\subset \R^N\to \R$, per determinare eventuali punti di massimo o minimo globale, si deve considerare:
+            <ol>
+                <li>
+                    Comportamento di $f$ alla frontiera $\partial D$, se $D$ non è limitato allora il comportamento all'$\infty$
+                </li>
+                <li>
+                    Punti interni singolari, ovvero dove non esiste il gradiente
+                </li>
+                <li>
+                    Punti critici interni a $D$, ovvero dove gradiente è nullo
+                </li>
+            </ol>
+
+            <h3>Caso in cui $D$ chiuso e limitato e $f$ continua</h3>
+            <p>
+                Allora esiste massimo e minimo globale di $f$, vanno calcolati quindi:
+                <ol>
+                    <li>
+                        Punti Singolari
+                    </li>
+                    <li>
+                        Punti critici di $f$
+                    </li>
+                    <li>
+                        Massimi e minimi di $f$ ristretti alla frontiera $\partial D\subset D$
+                    </li>
+                </ol>
+                Abbiamo quindi da risolvere un problema di ottimizzazione libera o non vincolata, ed un problema di ottimizzazione vincolata.
+            </p>
+
+            <h3>Programmazione Lineare</h3>
+
+
+            <div class = "definition">
+                <div class = "definition-title">
+                    Definizione: Programmazione Lineare
+                </div>
+                <p>
+                Problemi di programmazione lineare sono problemi di ottimizzazione di una <b>funzione lineare</b> detta <b>funzione obbiettivo</b> in un dominio definito da disuguaglianze che coinvolgono funzioni lineari.
+                </p>
+            </div>
+            
+            <p>
+                In generale $D$ è definito da un sistema di disuguaglianze del tipo $a_jx+b_jy + c_j \leq 0$ dove $j=1,...,M$ è intersezione di semipiani chiusi, ossia è un poligono convesso.
+            </p>
+            <p>
+                <b>
+                    <i>
+                        Il massimo o minimo sul dominio è SEMPRE uno dei vertici del poligono $D$
+                    </i>
+                </b>
+            </p>
+
+            
+
+            <div class="lemma">
+                <div class="lemma-title">Lemma Esempio</div>
+                <p>
+                    Esempio
+                </p>
+            </div>
+
+            <div class = "proposition">
+                <div class = "proposition-title">
+                    Proposizione Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+            <div class = "corollary">
+                <div class = "corollary-title">
+                    Corollario Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+            <div class = "theorem">
+                <div class = "theorem-title">
+                    Teorema Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+            <div class = "definition">
+                <div class = "definition-title">
+                    Definizione Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+        </section>
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+     <script src="../theme.js"></script>
+</body>
+</html>

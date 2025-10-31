@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Capitolo 17 - Analisi 2</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="minimal-wrapper">
+
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+    <a href="Analisi2.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Moltiplicatori di Lagrange</h1>
+    </header>
+
+    <article>
+        <section>
+
+            <p>
+                Sia $f: D\subset \R^N\to \R$ dove $f\in C^1(D)$ e sia $B\susbet \partial D$ tale che $B\subset D$, ovvero $B$ è una parte del bordo contenuta nel dominio di $f$. Supponiamo che $B = g\inv(c)\cap D$ ovvero una curva di livello di una funzione $g$, per una certa $g: A\subset\R^N\to \R$ con $A$ aperto e $g\in C^1(A)$. Il vincolo $B$ è rappresentato in forma implicita dalla relazione $\{p\in D;g(p)= c\}$.
+
+            </p>
+            
+            <p>
+                I punti massimi e minimi del vincolo sono tutti quei punti in cui $\nabla f(p_0)\parallel \nabla g(p_0)$. Infatti se $\nabla f(p_0)$ avesse una componente tangente al vincolo $B$ in un punto $p_0$, ciò indicherebbe che la derivata direzionale di $f$ nella direzione tangente al vincolo sarebbe $\neq 0$, ovvero spostandosi lungo il vincolo $B$ a partire da $p_0$, la funzione cresce/decresce, e $p_0$ non può essere massimo o minimo locale per $f|_B$.
+            </p>
+
+            <p>
+                Pertanto detto prima, cerchiamo quei punti in cui $$\nabla f = \lambda \nabla g$$
+                Componiamo quindi una funzione $L(x,y,\lambda):= f(x,y) + \lambda [g(x,y)-c]$ la funzione lagrangiana e troviamo $$\nabla_{x,y,\lambda} L =0 \sse \begin{cases}0 = \frac{\partial f}{\partial x} + \lambda \frac{\partial g}{\partial x} = \frac{\partial L}{\partial x} \\ 0 = \frac{\partial f}{\partial y} + \lambda \frac{\partial g}{\partial y} = \frac{\partial L}{\partial y} \\ 0 = g(x,y)-c\end{cases}$$
+            </p>
+            
+
+            <p>
+                Nei punti di massimo/minimo vincolato gli insiemi di livello di $f$ sono tangenti all'insieme di livello di $g$ considerato.
+            </p>
+
+            <div class = "theorem">
+                <div class = "theorem-title">
+                    Teorema dei Moltiplicatori di Lagrange
+                </div>
+                <p>
+                    Sia $A\subset \R^n$ aperto, f,g\in C^1(A;\R) e $p_0\in A$ un estremo di $f$ vincolato a $\Gamma = g\inv(c)$, per un dato livello $c\in \R$. Se $\nabla g(p_0)\neq 0$ allora esiste $\lambda_0\in \R$ detto moltiplicatore di Lagrange, tale che $\nabla f(p_0)=\lambda_0\cdot \nabla g(p_0)$. Equivalentemente, la coppia $(p_0,\lambda_0)\in \R^n\times \R$ è un punto critico (non più vincolato) della funzione Lagrangiana $$L:A\times \R\to \R$$ definita come $L(p,\lambda) = f(p)-\lambda \cdot g(p)$
+                </p>
+
+                <p>
+                    <h3>
+                        Dimostrazione:
+                    </h3>
+                    Essendo $\nabla g(p_0)\neq 0$, per il teorema delle funzioni implicite (del Dini) $\exists Q\subset A$ aperto con $p_0\in Q$ tale che $$g\inv (c) \cap Q = \{p(t): t\in [a,b]\}$$ con $t\mapsto p(t)\in C^1$ (descrizione parametrica del vincolo vicino a $p_0$) pertanto $p_0 = p(t_0)$ è un punto critico della funzione composta $h(t) = f(p(t))\quad t\in [a,b]$ allora $$0 = h'(t_0) = \lt \nabla f(p_0),p'(t_0)\gt\quad \quad \nabla f(p_0)\parallel \nabla g(p_0)\quad (\exists \lambda_0\in \R \quad | \nabla f(p_0)=\lambda_0 \nabla g(p_0))$$
+                </p>
+            </div>
+
+            <p>
+                <h3>
+                    Lagrange per più vincoli
+                </h3>
+                Sia da ottimizzare una funzione con più vincoli, aventi $g_1$ e $g_2$ allora; $$\nabla f(p_0) = \lambda_1 \nabla g_1(p_0) + \lambda_2 \nabla g_2 (p_0)$$
+                Dove la Lagrangiana è $$L(p,\lambda_1,\lambda_2) = f(p)-[\lambda_1 g_1(p)+\lambda_2g_2(p)]$$
+
+            </p>
+
+            <div class = "theorem">
+                <div class = "theorem-title">
+                    Teorema dei moltiplicatori di Lagrange nel caso di k vincoli
+                </div>
+                <p>
+                    In caso si hanno $k$ vincoli, sia $N=n+k$ e $G=(G_1,...,G_k):A\subset \R^N\to \R^k$ di classe $C^1$ e sia $f\in C^1(A;\R)$. Se $p_0\in G\inv(0)$ è un estremo vincolato per $f$ ristretta a $G\inv(0)$ e $DG(p_0)$ ha rango massimo $k$, allora $\exists \lambda_1,...,\lambda_k\in \R$ tali che $\nabla f(p_0)=\lambda_1\nabla G_1(p_0)+...+\lambda_k\nabla G_k(p_0)$
+                </p>
+            </div>
+
+            <p>
+                <h2>
+                    Condizioni di Karush - Kuhn - Tucker
+                </h2>
+                Forniscono un quadro unificato per la trattazione di problemi di ottimizzazione vincolata. Prendendo un vincolo $g(x)leq 0$ per $g:A\subset \R^m\to \R$, questo è equivalente a dire $\tilde{g}(p,u):=g(p)+u^2 = 0$ per $\tilde{g}:A_p\times \R_u\to \R$ perchè $u^2$ è sempre positiva, quindi per compensare ed essere sempre negativa $g(p)\leq 0$. Quindi, data $f:A\subset \R^N\to \R\in C^1(A)$ e $M$ vincoli $g_1(p)\leq 0 , ... , g_M(p)\leq 0$ con $g_1,...,g_M\in C^1(A)$ consideriamo $u = \begin{bmatrix}u_1\\ \vdots \\ u_M\end{bmatrix}\in\R^M$ e $G_i(p,u):A\times \R^M\to \R$ definita per $i=1,...,M$ da $$G_i(p,u)=g_i(p)+u_i^2$$
+                Otteniamo $M$ vincoli che sono i $G_i$ in $N+M$ variabili che sono $(x_1,...,x_N,u_1,...,u_M)$.
+            </p>
+
+            <p>
+                Valutiamo i punti estremi per $f$ vincolati al dominio $D = \{g_1(p)\leq 0, ... , g_M(p)\leq 0\}\subset A$, allora possiamo pensarla al "contrario" ovvero scegliamo $u_{0,i}\in \R$ tali che $u_{0,i}^2 = -g_i(p_0)$ per $i = 1,...,M$. Possiamo porre $u_0 = (u_{0,1} , ... , u_{0,M})\in \R^M$ ed otteniamo quindi $(p_0,u_0)\in A\times \R^M$ è un punto estremo per $f$ vincolato da $$\tilde{D} = \{G_1(p,u)= 0, ... , G_M(p,u) = 0\}\subset A\times \R^M$$
+                In particolare, se sappiamo che è un punto estremo, esistono $\lambga_0 \in \R^M$ tali che $\lambda_0 = \begin{bmatrix}\lambda_{0,1}\\ \vdots \\ \lambda_{0,M}\end{bmatrix}$.
+            </p>
+
+            <p>
+                Quindi $(p_0,u_0,\lambda_0)$ è un punto critico "libero" della Lagrangiana $$L:A_p\times \R^M_u\times \R^M_\lambda \to \R\in C^1$$ $$L(p,u,\lambda) = f(p) - \sum_{i=1}^M \lambda_i [g_i(p)+u_i^2]$$
+                Ovvero $(p_0,u_0,\lambda_0)$ verifica le condizioni di Karush-Kahun-Tucker: $$KKT = \nabla\begin{cases}\nabla f(p) = \sum_{i=1}^M\lambda_i\cdot \nabla g_i(p) \\ 2\lambda_1u_1 = 0 \\ \vdots \\ 2\lambda_Mu_M = 0 \\ g_1(p)+u^2_1 = 0 \\\vdots \\ g_M(p) + u_M^2 = 0\end{cases}$$
+            </p>
+
+            <p>
+                Osserviamo che la condizione $\lambda_j\cdot u_j = 0$ implica che o $u_j\neq 0 \Ra g_i(p)\lt 0\;\land \; \lambda_j = 0$ che significa che il vincolo $j$-esimo è inattivo oppure che $u_j = 0\Ra g_j(p)=0$ che significherebb eche il vincolo $j$-esimo è attivo. A seconda che i vincoli siano attivi o inattivi cambia l'equazione ($\nabla$) soddisfatta agli estremi vincolati, asd esempio se tutti vincoli fossero inattivi si ha $\lambda_j = 0$ e $g_j(p)\lt 0\quad \forall i = 1,...,M$ (punto interno al dominio $D$) per cui $(\nabla)$ si riduce alla condizione $\nabla f(p)=0$ ovvero $p$ è un punto critico interno a $D$.
+            </p>
+            
+
+            <h2>Minimi Quadrati</h2>
+
+            <p>
+                Uso estensivo in statistica, analisi dei dati e per problemi di approssimazione. consiste nel minimizzare una funzione che dipende dagli scarti quadrati tra la funzione ed i punti di sampeling. $$f(c) = \sum_{i = 1}^N |c-c_i|^2$$ dove $c_i$ sono i punti di sampeling. $f$ è derivabile essendo una funzione quadratica, avrà anche un minimo, quindi possiamo facilmente calcolare il minimo: $$f'(c) = 2\sum_{i=1}^N(c-c_i) = 0 \sse 2N\cdot c = 2\sum_{i=1}^N c_i sse c = \frac{1}{N}\sum_{i=1}^N c_i$$
+            </p>
+
+            <div class="lemma">
+                <div class="lemma-title">Esempio: Regressione Lineare</div>
+                <p>
+                    Dati $(x_i,y_i)\in \R^2,\quad i = 1,...,N$, determiniamo la retta $y=ax+b$ che meglio interpola i dati nel senso dei minimi quadrati: $$\min f(a,b) = \min \sum_{i=1}^N (y_i-ax_i-b)^2$$
+                    ...
+                </p>
+            </div>
+
+            <p>
+                <h2>
+                    Programmazione Quadratica
+                </h2>
+                Skippato
+                
+            </p>
+        </section>
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+     <script src="../theme.js"></script>
+</body>
+</html>

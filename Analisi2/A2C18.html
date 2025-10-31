@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Capitolo 18 - Analisi 2</title>
+
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="minimal-wrapper">
+
+    <div class="top-bar">
+        <div class="top-bar-info">
+            <div class="top-bar-name">Kimi Ergulec</div>
+            <div class="top-bar-university">Università di Verona</div>
+        </div>
+        <button id="theme-toggle" class="theme-toggle">
+            <span class="theme-toggle-icon">🌙</span>
+            <span class="theme-toggle-text">Modalità Scura</span>
+        </button>
+    </div>
+    <a href="Analisi2.html" class="back-home">← Torna indietro</a>
+
+    <header>
+        <h1>Derivazione Implicita</h1>
+    </header>
+
+    <article>
+        <section>
+            <p>
+                Sia $f:A\subset \R^2 \to \R$ con $f\in C^1(A)$ e $c\in \R$ tale che $f\inv(c)\neq \phi$, i punti $(x,y)\in f\inv(c)$ ovvero le soluzioni dell'equazione $f(x,y) = c$ definiscono una relazione vincolo tra $x$ e $y$, e sotto certe condizioni definiscono implicitamente una funzione $y = y(x)$ o $x=x(y)$ per lo meno localmente.
+            </p>
+
+            <div class = "theorem">
+                <div class = "theorem-title">
+                    Teorema delle funzioni Implicite (o del Dini)
+                </div>
+                <p>
+                    Enunciato nel caso di due variabili: $\Omega\subset \R^2$ e $g:\Omega\to \R$ è di classe $C^1(\Omega)$, $p_0\equiv(x_0,y_0)\in g\inv(0)$ e $\frac{\partial g}{\partial y}(p_0)\neq 0$, allora esistono $\delta,\sigma > 0$ ed un intorno $R = [x_0-\delta,x_0+\delta]\times [y0-\sigma,y+\sigma]$ tale che $g\inv(0)\cap R=\{(x,y)\in R , y = \phi(x)\}$, dove $\phi:[x_0-\delta,x_0+\delta]\to \R$ è una funzione di classe $C^1$. Otteniamo quindi anche la formula $$\phi'(x) = -\frac{\frac{\partial g}{\partial x}(x,\phi(x))}{\frac{\partial g}{\partial y}(x,\phi(x))}$$ Inoltre se $g\in C^k$ allora anche $\phi\in C^k$ e le derivate successive di $\phi$ si ottengono iterando la derivazione rispetto a $x$ della relazione $g(x,\phi(x))=0$
+                </p>
+                <p>
+                    <h3>
+                        Dimostrazione
+                    </h3>
+                    Supponiamo che $\frac{\partial g}{\partial y}(x_0,y_0)>0$ {ovvero che la funzione cresce in $x_0,y_0$} allora per la continuità di $\frac{\partial g}{\partial y}$ esiste un $\sigma>0$ tale che $\frac{\partial g}{\partial y}(x,y)>0\forall (x,y)\in Q_{\sigma}(x_0,y_0)$. In particolare $t\mapsto g(x_0,t)$ è strettamente crescente per $t\in [y_0-\sigma,y_0+\sigma]\Ra g(x_0,y_0+\sigma)\gt0$ e $g(x_0,y_0-\sigma)\lt 0$ (questo dato che $\frac{\partial g}{\partial y}(x,y)$). Per continuità di $g$, $\exists \delta\lt \sigma$ e $\delta\gt 0$ tale che $\forall x\in[x_0-\delta,x_0+\delta]$ si ha che $g(x,y_0-\sigma)\lt 0$  e $g(x,y_0+\sigma)>0$ e quindi, dato che $t\mapsto g(x,t)$ è strettamente crescente, $\exists!\; y=y(x)$ tale che $g(x,y(x)) = 0$. Ora dimostriamo che sia di classe $C^1$: Sia $x\in[x_0-\delta,x_0+\delta]$ e $h\in \R$ piccolo a sufficienza. Consideriamo la restrizione di $g(x,y)$ al segmento $[p,q] = \{(1-t)p + tq;t\in[0,1]\}$. Dato che $g\in C^1$ applichiamo il teorema del valor medio: $$f(t) = g(x+t\cdot l,y(x)+t(y(x+h)-y(x)))$$ $\exists 0\lt \tau \lt 1$ tale che $$f(1)-f(0) = f'(\tau) = \frac{\partial g}{\partial x}(p_\tau)\cdot l + \frac{\partial g}{\partial y}(p_\tau)[y(x+h)-y(x)]$$Dove $p_\tau = (x+\tau \cdot l, y(x)+\tau(y(x+h)-y(x)))$ e $g(q) = 0$ e $g(p)=0$. Otteniamo quindi $$y(x+h)-y(x) = l\cdot \left[\frac{-\frac{\partial g}{\partial x}(p_\tau)}{\frac{\partial g}{\partial y}(p_\tau)}\right]\Ra |y(x+h)-y(x)|\leq |h|\cdot \frac{M}{z}$$ dove $M = \max_{Q_\sigma}|\frac{\partial g}{\partial x}|$ e $z = \min_{Q_\sigma}|\frac{\partial g}{\partial y}|$. Facendo tendere $l\to 0$ otteniamo che $y\in C^0$ ma sapendo che $y\in C^0$ possiamo passare il limite per $h\to 0$ quindi $$y(x+h)-y(x) = l\cdot \left[\frac{-\frac{\partial g}{\partial x}(p_\tau)}{\frac{\partial g}{\partial y}(p_\tau)}\right]\Ra |y(x+h)-y(x)|\leq |h|\cdot \frac{M}{z}\Ra \frac{y(x+h)-y(x)}{l}=-\frac{-\frac{\partial g}{\partial x}(p_\tau)}{\frac{\partial g}{\partial y}(p_\tau)}\to -\frac{\frac{\partial g}{\partial x}(p)}{\frac{\partial g}{\partial y}(p)}$$ da cui la formula per la derivata $$y'(x)=-\frac{\frac{\partial g}{\partial x}(x,y(x))}{\frac{\partial g}{\partial y}(x,y(x))}$$ D'altra parte $y\in C^0$ e se le derivate parziali sono pure in $C^0$ allora $y'(x)\in C^0$ ovvero che $y\in C^1$       $\square$   
+                </p>
+                <img src = "Screenshot 2025-10-29 at 15.56.50.png">
+            </div>
+
+            <h3>Titoletto 3</h3>
+            <p>
+                Paragrafo
+            </p>
+
+            <h3>Titoletto 3</h3>
+            <ol>
+                <li>
+                    elemento
+                </li>
+
+                <li>
+                    elemento
+                </li>
+
+                <li>
+                    elemento
+
+                </li>
+            </ol>
+
+            <div class="lemma">
+                <div class="lemma-title">Lemma Esempio</div>
+                <p>
+                    Esempio
+                </p>
+            </div>
+
+            <div class = "proposition">
+                <div class = "proposition-title">
+                    Proposizione Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+            <div class = "corollary">
+                <div class = "corollary-title">
+                    Corollario Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+            <div class = "theorem">
+                <div class = "theorem-title">
+                    Teorema Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+            <div class = "definition">
+                <div class = "definition-title">
+                    Definizione Titolo
+                </div>
+                <p>esempio</p>
+            </div>
+
+        </section>
+    </article>
+
+    <!-- KaTeX and auto-render -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const macros = {
+            "\\CC": "\\mathbb{C}",
+            "\\RR": "\\mathbb{R}",
+            "\\QQ": "\\mathbb{Q}",
+            "\\ZZ": "\\mathbb{Z}",
+            "\\NN": "\\mathbb{N}",
+            "\\EE": "\\mathrm{e}",
+            "\\ii": "\\mathrm{i}",
+            "\\dd": "\\mathrm{d}",
+            "\\La": "\\Leftarrow",
+            "\\Ra": "\\Longrightarrow",
+            "\\sse": "\\Longleftrightarrow",
+            "\\inv": "^{-1}"
+        };
+
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "\\[", right: "\\]", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false}
+            ],
+            macros: macros,
+            ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
+        });
+    });
+    </script>
+     <script src="../theme.js"></script>
+</body>
+</html>

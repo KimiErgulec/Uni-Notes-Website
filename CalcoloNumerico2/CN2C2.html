@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Calcolo 2 C2</title>
+    <title>Calcolo Numerico 2 - Capitolo 2</title>
 
     <!-- KaTeX CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
@@ -23,71 +23,152 @@
             <span class="theme-toggle-text">Modalità Scura</span>
         </button>
     </div>
-    <a href="index.html" class="back-home">← Torna indietro</a>
+    <a href="CalcoloNumerico2.html" class="back-home">← Torna indietro</a>
 
     <header>
-        <h1>Capitolo 2 - Calcolo 2</h1>
+        <h1>Minimi Quadrati</h1>
     </header>
 
     <article>
         <section>
-            <h2>Titoletto 2</h2>
-
-            <h3>Titoletto 3</h3>
+            <h2>Introduzione</h2>
             <p>
-                Paragrafo
+                Il problema dei minimi quadrati si basa sul fatto di minimizzare la distanza tra la nostra funzione "modello" ed i punti sperimentali che abbiamo $(x_i^*,y_i^*)$ con $i=1,...,m$. La funzione può essere composta come combinazione lineare di multiple funzioni, per esempio: $$y(x)=z_1\varphi_1(x) + z_2\varphi_2(x)+...+z_n\varphi(x)$$
+                Noi siamo alla ricerca di questa funzione $y(x)$ in cui inserendo $y(x_i)\approx y_i$ per tutti i punti $i=1,...,m$. Lo facciamo minimizzando la funzione $$\min_{z\in \R^n} \sum_{i=1}^m r_i^2 = \min_{z\in \R^n} ||b-Az||_2^2 = \min_{z\in \R^n}(Az-b)^T(Az-b) = \min_{z\in \R^n} \frac{1}{2}(Az-b)^T(Az-b)$$Dove l'aggiunzione di $\frac{1}{2}$ non cambia niente siccome minimizzare $x$ o $\frac{1}{2}x$ è identico.
             </p>
 
-            <h3>Titoletto 3</h3>
-            <ol>
-                <li>
-                    elemento
-                </li>
+            <h2>Diversi metodi</h2>
+            <p>
+                I vari metodi che possiamo usare sono $3$ e sono i seguenti:
+            </p>
 
-                <li>
-                    elemento
-                </li>
+            <h3>
+                Risoluzione delle equazioni normali
+            </h3>
 
-                <li>
-                    elemento
+            <p>
+                Sia $$f(z) = \frac{1}{2}(Az-b)^T(Az-b)= \frac{1}{2}(z^TA^TAz - z^TA^Tb-b^TAz + b^Tb)$$ possiamo usare la proprietà commutativa e riscrivere nella seguente maniera: $$f(z) = \frac{1}{2}(z^TA^TAz - 2z^TA^Tb - b^Tb)$$ dove siccome stiamo cercando di minimizzare, cerchiamo il gradiente della funzione $$\frac{\partial f}{\partial z_i} = A^TAz-A^Tb$$ e troviamo il minimo uguagliandolo a $0$. Le equazioni normali sono quelle equazioni in cui $$A^TAz = A^Tb$$ ed esse determinano un sistema lineare di $n$ equazioni in $n$ incognite. Inoltre $A^TA$ è simmetrica e se ha rango massimo è pure definita positiva quindi una scomposizione ottimale in questo caso sarebbe Cholesky, se invece è sparsa conviene usare il gradiente coniugato. $A^TA$ però è spesso malcondizionata, questo siccome il condizionamento di $A^A$ è il quadrato del condizionamento di $A$.
+            </p>
+            <h4>
+                La scelta di $\varphi$
+            </h4>
+            <p>
+                In generale $\varphi_1,...,\varphi_n$ sono stabilite in base al modello fisico che ci aspettiamo. La scelta classica e più semplice però è quella di scegliere $\varphi_1(x)=1$ e $\varphi_2(x) = x$ ovvero di trovare una retta che tracci il grafico di approssimazione ottenendo perciò $$y(x) = z_1+z_2x$$
+            </p>
 
-                </li>
-            </ol>
+            <h4>
+                Fattorizzazione QR
+            </h4>
+            <p>
+                Una matrice $A\in \R^{m\times n}$ dove $m\geq n$, ammette una fattorizzazione di tipo QR se esiste una matrice $Q\in \R^{m\times m}$ ortogonale ($A^T = A\inv$) ed una matrice triangolare superiore $R\in \R^{m\times n}$ con le righe della $n+1$-esima in poi tutte nulle, tali che $A=Q\cdot R$.$$\begin{bmatrix} & & & & \\ & & A& &\\ & & & &\end{bmatrix}_{m\times n}  = \begin{bmatrix} & & & & \\ & &Q & & \\ & & & &\end{bmatrix}_{m\times m}\begin{bmatrix} & & & &\\ & &R & &\\ & & & &\end{bmatrix}_{m\times n}$$
+                Quando $A$ ha rango pieno, possiam,o scrivere $A = \tilde{Q}\tilde{R}$ dove $\tilde{Q}$ è la matrice data da tutte le righe di $Q$ ma le sole prime $n$ colonne, e $\tilde{R}$ è data da tutte le colonne di $R$ ma le sole prime $n$ righe. Se $A$ piena di rango $m$ allora i vettori colonna di $\tilde{Q}$ formano una base ortonormale (per costruzione che vedremo dopo) per lo spazio vettoriale di dimensione $n$. Di conseguenza il calcolo della fattorizzazione $QR$ può essere visto come un modo per calcolare una base ortogonale per un dato numero di vettori.
+            </p>
+            <p>
+                Per la costruzione di $\tilde{Q}$ usiamo il processo di ortogonalizzazione di Grahm-Schmidt, ovvero $$\tilde{q}_1 = \frac{a_1}{||a_1||}$$$$\tilde{q}_{n+1} = \frac{q_{k+1}}{||q_{k+1}||}\Ra q_{k+1} = a_{k+1}-\sum_{j=1}^k (\tilde{q}_j\cdot a_{k+1})\tilde{q}_j$$
+                Successivamente possiamo trovare $\tilde{r}$ sfruttando il fatto che $\tilde{Q}^T\tilde{Q} = I$ $$A=\tilde{Q}\tilde{R}\Ra \tilde{R} = \tilde{Q}^T A$$
+                In realtà l'algoritmo scritto è molto mal condizionato. Possiamo usare il comando matlab per il calcolo delle matrici $Q,R$ oppure $\tilde{Q}\tilde{R}$.
+            </p>
+            <p>
+                Ora aventi $A = \tilde{Q}\tilde{R}$ e volendo risolvere $Ax= b$ otteniamo: $$Ax=b\Ra \tilde{Q}\tilde{R}x=b\Ra \tilde{R}x = \underbrace{\tilde{Q}^Tb}_{y}\Ra Ax = b \to\begin{cases} y=\tilde{Q}^Tb \\ \tilde{R}x = y\end{cases}$$
+            </p>
 
-            <div class="lemma">
-                <div class="lemma-title">Lemma Esempio</div>
+            <p>
+                <h3>
+                    Fattorizzazione SVD
+                </h3>
+                L'acronimo SVD significa Singular Value Decomposition. SVD è un metodo usato per fattorizzare tutte dimensioni di matrici, esiste sempre e produce un algoritmo stabile.
+            </p>
+            <div class = "lemma">
+                <div class = "lemma-title">
+                    Osservazione 1 (Basi ortogonali e base canonica)
+                </div>
                 <p>
-                    Esempio
+                    La base canonica è semplicemente l'insieme di $e_i$ alto $N$ con nella posizione i-esima $1$ e nelle altre $0$. $$x = \sum_{i=1}^N x_i\cdot e_i$$ La base canonica è ortonormale, ovvero ogni vettore è versore e sono tra loro ortogonali: $$e_i^Te_j = \delta_{i,j}$$
+                    Non dobbiamo sempre esprimere tutto in basi canoniche: possiamo usare qualsiasi base ortonormale (ortogonale anche). $$U = \{u_1,...,u_n\}$$ tale che $$u_j^Tu_i = \delta_{ij}$$ e perciò $$x = \sum_{i=1}^N a_{i}u_i$$ ed i coefficienti $a_i$ sono le coordinate di $x$ rispetto alla base $U$ ovvero $a_i = u_i^T x$: $$u_j^Tx = u_j^T\sum_{i=1}^N a_iu_i = p_j^Tx = \sum_{i=1}^n a_ip_j^Tp_j = a_j$$
+                </p>
+            </div>
+            <div class = "lemma">
+                <div class = "lemma-title">
+                    Osservazione 2 (Matrici Simmetriche)
+                </div>
+                <p>
+                    $A_{n\times n}(\R)$ simmetrica ($A^T = A$) allora è diagonalizzabile, cioè $\exists P\in \R^{n\times n}$ ortogonale ed una matrice $D$ tale che $$A = PDP^T$$ dove $D$ ha sulla sua diagonale gli autovalori di $A$ e $P$ gli autovettori.
                 </p>
             </div>
 
-            <div class = "proposition">
-                <div class = "proposition-title">
-                    Proposizione Titolo
+            <div class = "lemma">
+                <div class = "lemma-title">
+                    Osservazione 3 
                 </div>
-                <p>esempio</p>
+                <p>
+                    Una matrice $A$ simmetrica può essere sempre vista come matrice diagonale, basta convertire tutto nella base giusta. Se $y = Ax\Ra y = PDP^Tx$ allora $P^T y = D(P^Tx)$ nella base $P$ la matrice $A$ è diagonale.
+                </p>
             </div>
 
-            <div class = "corollary">
-                <div class = "corollary-title">
-                    Corollario Titolo
-                </div>
-                <p>esempio</p>
-            </div>
+            <h3>
+                Proprietà della fattorizzazione SVD e le sue proprietà:
+            </h3>
+            <p>
+                Per $A\in \R^{n\times n}$ anche se non simmetrica $\exists$ una fattorizzazione "NON UNICA" chiamata singular value decomposition tale che $A = PDQ^T$ dove $P$ e $Q$ sono $\R^{n\times n}$ ortogonali e $D\in \R^{n\times n}$ diagonale.
+                <h4>
+                    Proprietà:
+                </h4>
+                <ol>
+                    <li>
+                        $A^TA = (PDQ^T)^T(PDQ^T) = QD^TP^TPDQ^T = QD^TDQ^T = QD^2Q^T$ ciò significa che $Q\in \R^{n\times n}$ è la matrice ortogonale della diagonalizzazione di $A^TA$ e $D^2$ è la matrice che ha sulle diagonali gli autovalori di $A^TA$ $$D = \begin{bmatrix}\sigma_1 & & 0 \\ & \ddots & \\ 0& & \sigma_n\end{bmatrix}$$ dove $\sigma_i = \sqrt{\lambda_i (A^TA)}$ e sono chiamati valori singolari della matrice $A$.
+                    </li>
+                    <li>
+                        Notiamo che la fattorizzazione $A = PDQ^T$ produce una $D$ con elementi non negativi che può non coincidere con la diagonalizzazione
+                    </li>
+                    <li>
+                        La matrice $A^TA$ oltre ad essere simmetrica è definita non negativa $$x^T(A^TA)x = (Ax)^T(Ax) = ||Ax||_2^2 \geq 0$$
+                        Gli autovalori di $(A^TA)$ sono sempre $\geq 0$ e quindi $\sigma_i$ esiste $\sigma\geq 0$. Dunque possiamo ordinarli, $\sigma_1\geq \sigma_2\geq ... \geq \sigma_n$
+                    </li>
+                </ol>
 
-            <div class = "theorem">
-                <div class = "theorem-title">
-                    Teorema Titolo
+                <div class = "lemma">
+                <div class = "lemma-title">
+                    Osservazione 4
                 </div>
-                <p>esempio</p>
+                <p>
+                    Si consideri $y=Ax$ e una decomposizione $SVD$ di $A$. Si ottiene $y=PDQ^Tx$ con $P^Ty = DQ^Tx$ cioè usando la base $P$ per l'immagine e la base $Q$ per il dominio, anche la generica matrice $A$ diventa diagonale
+                </p>
             </div>
+            </p>
 
-            <div class = "definition">
-                <div class = "definition-title">
-                    Definizione Titolo
-                </div>
-                <p>esempio</p>
+            <h3>SVD per matrici Rettangolari</h3>
+            <p>
+                $A\in \R(m\times n)$ esiste $P,Q,D$ tale che $$A = P_{m\times m} \cdot D_{m\times n} \cdot Q^T_{n\times n}$$
+                Con $P,Q$ ortogonali.  $$D = \begin{bmatrix}\sigma_1 & & & & \\& \ddots &&&\\ &&\sigma_n &&\end{bmatrix}_{n\geq m}\quad \quad \quad D = \begin{bmatrix}\sigma_1 && \\ & \ddots & \\ &&\sigma_n \\ && \\ &&\end{bmatrix}_{m\geq n}$$
+                Notiamo che a seconda del caso, alcune colonne di $P$ o righe di $Q$ sono trascurabili a fine della ricostruzione di $A$. Esiste quindi una sottodecomposizione più economica che permette di ricostruire $A$ esattamente prendendo solo le prime $m$ righe o le prime $n$ colonne. In matlab questo comando è "[P,D,Q] = svd(A,"econ")"
+            </p>
+
+            <h3>
+                Valori Singoli 
+            </h3>
+            <p>
+                Sappiamo che aventi una matrice ortonormale, moltiplicarla per un vettore, il vettore non cambia di lunghezza. Abbiamo quindi che $\forall x\in \R^N$ $$||Qx||_2 = ||x||_2$$ Inoltre $$(Qx)^T (Qy) = x^Ty\quad \forall x,y\in \R^n$$
+                e per la norma basta prendere $x=y$ per dimostrare quello sopra.
+                <div class = "lemma">
+                    <div class = "lemma-title">
+                        Proprietà: Il Valore singolo maggiore e minore
+                    </div>
+                <p>
+                    $$||A||_2 = ||PDQ^T||_2 = ||D||_2 =\sqrt{\rho(D^TD)}= \rho(D)= \max_{1\leq i \leq n} |D_{ii}| = \max_{i}\sigma_i = \sigma_1$$
+                </p>
+                <p>
+                    $$||A\inv||_2 = ||QD\inv P^T||_2 = ||D\inv||_2= ...= \sigma_n$$
+                </p>
             </div>
+            <div class = "lemma">
+                <div class = "lemma-title">
+                    Proprietà: Distanza
+                </div>
+                <p>
+                    Sia $A_k = \sum_{i=1}^k \sigma_ip_iq_i^T$ dove $A_k$ è un pezzo della matrice, $p$ collonne e $q$ colonne trasposte. Possiamo dimostrare che $||A-A_k||_2=\sigma_{k+1}$ valore singolare $\Ra \sigma_{k+1}$ è piccolo, ha senso quindi approssimare $A$ con $A_k$
+                </p>
+            </div>
+            </p>
 
         </section>
     </article>
